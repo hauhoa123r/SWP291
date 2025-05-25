@@ -1,21 +1,24 @@
 package org.project.api;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.project.model.dto.UserLoginDTO;
+import org.project.model.response.UserLoginResponse;
+import org.project.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
-@RequestMapping("/submit")
+@RestController
+@RequestMapping("/user")
 public class UserAPI {
 
-    @PostMapping
-    public String handleSubmit(@RequestParam String id,
-                               @RequestParam String name,
-                               @RequestParam int age,
-                               Model model) {
-        model.addAttribute("msg", "Đã nhận dữ liệu: " + id + ", " + name + ", " + age);
-        return "object/result";
+    @Autowired
+    UserService userServiceImpl;
+
+    @PostMapping("/login")
+    public UserLoginResponse handleSubmit(@ModelAttribute UserLoginDTO userLoginDTO) {
+        UserLoginResponse userLoginResponse = userServiceImpl.isLogin( userLoginDTO);
+        return userLoginResponse;
     }
 }
+//git add .
+//git commit -m "3 layer"
+//git push origin main
