@@ -14,7 +14,7 @@ import java.util.Date;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Promotions {
+public class PromotionEntity {
 
     @Column(name = "promotion_id")
     @Id
