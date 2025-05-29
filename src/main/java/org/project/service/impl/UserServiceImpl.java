@@ -23,4 +23,14 @@ public class UserServiceImpl implements UserService {
         UserLoginResponse userLoginResponse = toConverterLoginResponse.toConverterUserLoginResponse(userEntity);
         return userLoginResponse;
     }
+
+
+    public static void main(String[] args) {
+        String str = "hehe,huhu,haha,hoho";
+
+        String[] arr = str.split(",");
+        int b = 10;
+        int c = 20;
+        int a = 10;
+    }
 }
