@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "suppliers")
@@ -31,5 +31,5 @@ public class SupplierEntity {
     private String phoneNumber;
 
     @OneToMany(mappedBy = "supplierEntity", fetch = FetchType.LAZY)
-    private ArrayList<SupplierTransactionEntity> supplierTransactionEntities;
+    private List<SupplierTransactionEntity> supplierTransactionEntities;
 }

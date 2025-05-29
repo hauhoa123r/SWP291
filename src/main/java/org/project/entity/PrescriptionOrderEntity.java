@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "prescription_orders")
@@ -29,8 +29,8 @@ public class PrescriptionOrderEntity {
     private String status;
 
     @OneToMany(mappedBy = "prescriptionOrderEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private ArrayList<PrescriptionDetailEntity> prescriptionDetailEntity;
+    private List<PrescriptionDetailEntity> prescriptionDetailEntity;
 
     @OneToMany(mappedBy = "prescriptionOrderEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private ArrayList<PaymenEntity> paymenEntities;
+    private List<PaymentEntity> paymentEntities;
 }

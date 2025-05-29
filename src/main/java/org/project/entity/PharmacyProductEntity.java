@@ -7,7 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
+import java.util.List;
+import java.util.List;
 
 @Entity
 @Table(name = "pharmacy_products")
@@ -22,7 +23,7 @@ public class PharmacyProductEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "product_name", nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
     @Column(name = "type")
@@ -35,20 +36,20 @@ public class PharmacyProductEntity {
     private String unit;
 
     @OneToMany(mappedBy = "pharmacyProductEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private ArrayList<PharmacyInventoryEntity> pharmacyInventoryEntities;
+    private List<PharmacyInventoryEntity> pharmacyInventoryEntities;
 
     @OneToMany(mappedBy = "pharmacyProductEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private ArrayList<InventoryBatchEntity> inventoryBatchEntities;
+    private List<InventoryBatchEntity> inventoryBatchEntities;
 
     @OneToMany(mappedBy = "pharmacyProductEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private ArrayList<TransactionDetailEntity> transactionDetailEntity;
+    private List<TransactionDetailEntity> transactionDetailEntities;
 
     @OneToMany(mappedBy = "pharmacyProductEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private ArrayList<SubscribedPackageEntity> subscribedPackageEntities;
+    private List<SubscribedPackageEntity> subscribedPackageEntities;
 
     @OneToMany(mappedBy = "pharmacyProductEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private ArrayList<PrescriptionDetailEntity> prescriptionDetailEntities;
+    private List<PrescriptionDetailEntity> prescriptionDetailEntities;
 
     @OneToMany(mappedBy = "pharmacyProductEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private ArrayList<ProductFeedbackEntity> productFeedbackEntity;
+    private List<ProductFeedbackEntity> productFeedbackEntities;
 }

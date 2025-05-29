@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Date;
 
 @Entity
@@ -38,5 +38,5 @@ public class SupplierTransactionEntity {
     private PharmacyStaffEntity pharmacyStaffEntity;
 
     @OneToMany(mappedBy = "supplierTransactionEntity",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private ArrayList<TransactionDetailEntity> transactionDetailEntity;
+    private List<TransactionDetailEntity> transactionDetailEntity;
 }

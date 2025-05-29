@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "pharmacy_staff")
@@ -32,5 +33,5 @@ public class PharmacyStaffEntity {
     private AccountEntity accountEntity;
 
     @OneToMany(mappedBy = "pharmacyStaffEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private ArrayList<SupplierTransactionEntity> supplierTransactionEntities;
+    private List<SupplierTransactionEntity> supplierTransactionEntities;
 }

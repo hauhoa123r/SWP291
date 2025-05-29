@@ -15,7 +15,7 @@ import java.util.Date;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PaymenEntity {
+public class PaymentEntity {
     @Column(name = "payment_id")
     @Id
     @GeneratedValue
@@ -35,5 +35,5 @@ public class PaymenEntity {
 
     @ManyToOne
     @JoinColumn(name = "order_id")
-    private PrescriptionDetailEntity prescriptionDetail;
+    private PrescriptionOrderEntity prescriptionOrderEntity;
 }

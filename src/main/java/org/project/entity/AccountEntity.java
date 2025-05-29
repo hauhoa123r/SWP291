@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "accounts")
@@ -38,5 +39,5 @@ public class AccountEntity {
     private Date createdAt;
 
     @OneToMany(mappedBy = "accountEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private ArrayList<PharmacyStaffEntity> pharmacyStaffEntities;
+    private List<PharmacyStaffEntity> pharmacyStaffEntities;
 }
