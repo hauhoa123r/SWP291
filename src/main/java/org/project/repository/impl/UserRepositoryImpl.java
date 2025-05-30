@@ -3,10 +3,7 @@ package org.project.repository.impl;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.project.entity.UserEntity;
-import org.project.model.dto.UserLoginDTO;
-import org.project.repository.UserRepository;
 import org.project.repository.impl.custom.UserRepositoryCustom;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 @Repository
