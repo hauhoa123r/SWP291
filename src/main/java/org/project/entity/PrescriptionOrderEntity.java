@@ -28,9 +28,9 @@ public class PrescriptionOrderEntity {
     @Column(name = "status", nullable = false)
     private String status;
 
-    @OneToMany(mappedBy = "prescriptionOrderEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "prescriptionOrderEntity", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     private List<PrescriptionDetailEntity> prescriptionDetailEntity;
 
-    @OneToMany(mappedBy = "prescriptionOrderEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "prescriptionOrderEntity", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     private List<PaymentEntity> paymentEntities;
 }

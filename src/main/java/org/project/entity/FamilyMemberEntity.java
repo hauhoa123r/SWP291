@@ -38,6 +38,6 @@ public class FamilyMemberEntity {
     @Column(name = "gender")
     private String gender;
 
-    @OneToOne(mappedBy = "familyMember", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "familyMember", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     private PatientProfileEntity patientProfile;
 }

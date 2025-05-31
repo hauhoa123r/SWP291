@@ -37,6 +37,6 @@ public class SupplierTransactionEntity {
     @JoinColumn(name = "staff_id")
     private PharmacyStaffEntity pharmacyStaffEntity;
 
-    @OneToMany(mappedBy = "supplierTransactionEntity",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "supplierTransactionEntity",cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     private List<TransactionDetailEntity> transactionDetailEntity;
 }

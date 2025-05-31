@@ -1,5 +1,6 @@
 package org.project.service.impl;
 
+import org.project.entity.AccountEntity;
 import org.project.entity.UserEntity;
 import org.project.model.dto.UserLoginDTO;
 import org.project.model.response.UserLoginResponse;
@@ -8,6 +9,9 @@ import org.project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.project.converter.toConverterLogin;
+
+import java.lang.reflect.Field;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -25,12 +29,5 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    public static void main(String[] args) {
-        String str = "hehe,huhu,haha,hoho";
 
-        String[] arr = str.split(",");
-        int b = 10;
-        int c = 20;
-        int a = 10;
-    }
 }
