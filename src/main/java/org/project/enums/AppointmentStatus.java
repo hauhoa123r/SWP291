@@ -1,10 +1,10 @@
 package org.project.enums;
 
 public enum AppointmentStatus {
-    PENDING("Pending"),
-    CONFIRMED("Confirmed"),
-    COMPLETED("Completed"),
-    CANCELLED("Cancelled"),
+    pending("Pending"),
+    confirmed("Confirmed"),
+    completed("Completed"),
+    cancelled("Cancelled"),
     ;
 
     private final String value;
