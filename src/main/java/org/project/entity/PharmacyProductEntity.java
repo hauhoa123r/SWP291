@@ -52,5 +52,7 @@ public class PharmacyProductEntity {
     @OneToMany(mappedBy = "pharmacyProductEntity", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     private List<ProductFeedbackEntity> productFeedbackEntities;
 
+    @OneToMany(mappedBy = "pharmacyProductEntity", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+    private List<ProductIngredientEntity> productIngredientEntities;
 
 }

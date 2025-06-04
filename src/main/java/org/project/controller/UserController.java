@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class UserController {
 
-    @GetMapping("")
+    @GetMapping("/")
     public String hello(Model model) {
-        return "index";
+        System.out.println("Vào được controller rồi nhé");
+        return "object/result";
     }
+
 }
