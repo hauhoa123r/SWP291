@@ -1,4 +1,4 @@
-package org.project.controller;
+package org.project.api;
 
 import org.project.service.impl.AIServiceImpl;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/ai")
-public class AIController{
+public class ChatBoxAPI {
 
     private final AIServiceImpl aiService;
 
-    public AIController(AIServiceImpl aiService) {
+    public ChatBoxAPI(AIServiceImpl aiService) {
         this.aiService = aiService;
     }
 
