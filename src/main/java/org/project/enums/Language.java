@@ -9,7 +9,7 @@ public enum Language {
     ENGLISH("English"),
     FRENCH("French"),
     GERMAN("German"),
-    JAPANESE("Japanses"),
+    JAPANESE("Japanese"),
     KOREAN("Korean"),
     CHINESE("Chinese"),
     SPANISH("Spanish");
