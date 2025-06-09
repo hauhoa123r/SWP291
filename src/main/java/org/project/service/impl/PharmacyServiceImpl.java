@@ -1,8 +1,6 @@
 package org.project.service.impl;
 
-import lombok.RequiredArgsConstructor;
 import org.project.converter.ConverterPharmacyProduct;
-import org.project.entity.PharmacyProductEntity;
 import org.project.model.response.PharmacyListResponse;
 import org.project.repository.PharmacyRepository;
 import org.project.service.PharmacyService;
