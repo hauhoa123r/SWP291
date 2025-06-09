@@ -1,112 +1,93 @@
 package org.project.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.util.Date;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 @Entity
-@Table(name = "user")
+@Table(name = "users", schema = "swp391")
 public class UserEntity {
     @Id
-    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
+    @Column(name = "user_id", nullable = false)
     private Long id;
 
-    @Column(name = "full_name")
-    private String fullName;
-
-    @Column(name = "username", unique = true, nullable = false)
-    private String username;
-
-    @Column(name = "password", nullable = false)
-    private String password;
-
-    @Column(name = "email", unique = true, nullable = false)
+    @Size(max = 255)
+    @Column(name = "email")
     private String email;
 
-    @Column(name = "phone_number", unique = true, nullable = false)
+    @Size(max = 255)
+    @Column(name = "password_hash")
+    private String passwordHash;
+
+    @Size(max = 255)
+    @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Column(name = "created_date")
-    private Date createdDate;
+    @Size(max = 255)
+    @Column(name = "verification_token")
+    private String verificationToken;
 
-    @Column(name = "date_of_birth")
-    private Date dateOfBirth;
+    @Column(name = "is_verified")
+    private Boolean isVerified;
 
-    public UserEntity() {
-    }
+    @Column(name = "two_factor_enabled")
+    private Boolean twoFactorEnabled;
 
-    public UserEntity(Long id, String fullName, String username, String password, String email, String phoneNumber, Date createdDate, Date dateOfBirth) {
-        this.id = id;
-        this.fullName = fullName;
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.createdDate = createdDate;
-        this.dateOfBirth = dateOfBirth;
-    }
+    @OneToOne(mappedBy = "userEntity")
+    private StaffEntity staffEntity;
 
-    public Long getId() {
-        return id;
-    }
+    @OneToMany(mappedBy = "userEntity")
+    private Set<CartItemEntity> cartItemEntities = new LinkedHashSet<>();
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @OneToMany(mappedBy = "userEntity")
+    private Set<NotificationEntity> notificationEntities = new LinkedHashSet<>();
 
-    public String getFullName() {
-        return fullName;
-    }
+    @OneToMany(mappedBy = "userEntity")
+    private Set<PatientEntity> patientEntities = new LinkedHashSet<>();
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
+    @OneToMany(mappedBy = "userEntity")
+    private Set<ShippingAddressEntity> shippingAddressEntities = new LinkedHashSet<>();
 
-    public String getUsername() {
-        return username;
-    }
+    @OneToMany(mappedBy = "userEntity")
+    private Set<UserCouponEntity> userCouponEntities = new LinkedHashSet<>();
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+    @OneToMany(mappedBy = "userEntity")
+    private Set<WalletEntity> walletEntities = new LinkedHashSet<>();
 
-    public String getEmail() {
-        return email;
-    }
+    @ManyToMany
+    @JoinTable(name = "wishlist_products",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id"))
+    private Set<ProductEntity> products = new LinkedHashSet<>();
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public Date getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
+/*
+ TODO [Reverse Engineering] create field to map the 'status' column
+ Available actions: Define target Java type | Uncomment as is | Remove column mapping
+    @Column(name = "status", columnDefinition = "enum")
+    private Object status;
+*/
+/*
+ TODO [Reverse Engineering] create field to map the 'user_role' column
+ Available actions: Define target Java type | Uncomment as is | Remove column mapping
+    @org.hibernate.annotations.ColumnDefault("'PATIENT'")
+    @Column(name = "user_role", columnDefinition = "enum not null")
+    private java.lang.Object userRole;
+*/
+/*
+ TODO [Reverse Engineering] create field to map the 'user_status' column
+ Available actions: Define target Java type | Uncomment as is | Remove column mapping
+    @org.hibernate.annotations.ColumnDefault("'ACTIVE'")
+    @Column(name = "user_status", columnDefinition = "enum not null")
+    private java.lang.Object userStatus;
+*/
 }

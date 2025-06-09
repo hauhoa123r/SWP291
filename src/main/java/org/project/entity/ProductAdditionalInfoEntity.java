@@ -8,20 +8,22 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@Entity(name = "SupplierEntityEntity")
-@Table(name = "suppliers", schema = "swp391")
-public class SupplierEntity {
+@Entity(name = "ProductAdditionalInfoEntityEntity")
+@Table(name = "product_additional_infos", schema = "swp391")
+public class ProductAdditionalInfoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "supplier_id", nullable = false)
+    @Column(name = "product_additional_info_id", nullable = false)
     private Long id;
+
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "product_id", nullable = false)
+    private ProductEntity productEntity;
 
     @Size(max = 255)
     @NotNull
@@ -29,14 +31,8 @@ public class SupplierEntity {
     private String name;
 
     @Size(max = 255)
-    @Column(name = "email")
-    private String email;
-
-    @Size(max = 255)
-    @Column(name = "phone_number")
-    private String phoneNumber;
-
-    @OneToMany
-    private Set<SupplierTransactionsEntity> supplierTransactionEntities = new LinkedHashSet<>();
+    @NotNull
+    @Column(name = "value", nullable = false)
+    private String value;
 
 }

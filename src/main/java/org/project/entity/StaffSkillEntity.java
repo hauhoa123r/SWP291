@@ -8,35 +8,32 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.math.BigDecimal;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@Entity(name = "SupplierEntityEntity")
-@Table(name = "suppliers", schema = "swp391")
-public class SupplierEntity {
+@Entity
+@Table(name = "staff_skills", schema = "swp391")
+public class StaffSkillEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "supplier_id", nullable = false)
+    @Column(name = "staff_skill_id", nullable = false)
     private Long id;
+
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "staff_id", nullable = false)
+    private StaffEntity staffEntity;
 
     @Size(max = 255)
     @NotNull
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Size(max = 255)
-    @Column(name = "email")
-    private String email;
-
-    @Size(max = 255)
-    @Column(name = "phone_number")
-    private String phoneNumber;
-
-    @OneToMany
-    private Set<SupplierTransactionsEntity> supplierTransactionEntities = new LinkedHashSet<>();
+    @NotNull
+    @Column(name = "proficiency_percentage", nullable = false, precision = 5, scale = 2)
+    private BigDecimal proficiencyPercentage;
 
 }
