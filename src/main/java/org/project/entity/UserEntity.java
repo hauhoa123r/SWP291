@@ -83,7 +83,7 @@ public class UserEntity implements UserDetails {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id"))
     private Set<ProductEntity> products = new LinkedHashSet<>();
-
+-
     @OneToOne(mappedBy = "user")
     private ForgotPassword forgotPassword;
 
