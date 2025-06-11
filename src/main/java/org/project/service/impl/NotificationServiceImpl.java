@@ -1,17 +1,24 @@
 package org.project.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.project.entity.AppointmentEntity;
 import org.project.entity.NotificationEntity;
 import org.project.entity.PatientEntity;
 import org.project.entity.UserEntity;
+import org.project.repository.AppointmentRepository;
 import org.project.repository.NotificationRepository;
 import org.project.repository.PatientRepository;
 import org.project.repository.UserRepository;
 import org.project.service.EmailService;
 import org.project.service.NotificationService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -22,6 +29,9 @@ public class NotificationServiceImpl implements NotificationService {
     private final UserRepository userRepository;
     private final PatientRepository patientRepository;
     private final EmailService emailService;
+    private final AppointmentRepository appointmentRepository;
+
+    private static final Logger log = LoggerFactory.getLogger(NotificationServiceImpl.class);
 
     // Trả danh sách thông báo của user (dùng cho giao diện web)
     @Override
@@ -65,6 +75,91 @@ public class NotificationServiceImpl implements NotificationService {
                 emailService.sendEmail(patient.getEmail(), title, content);
             }
         }
+    }
+
+    @Override
+    public void sendAppointmentNotification(Long appointmentId) {
+        AppointmentEntity appt = appointmentRepository.findById(appointmentId)
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy lịch hẹn"));
+
+        String content = buildAppointmentContent(appt, "Xác nhận lịch hẹn",
+                "🔔 Bệnh nhân %s đã đặt lịch với bác sĩ %s vào lúc %s.");
+
+        sendNotification(appt.getPatientEntity().getUserEntity().getId(), "🔔 Xác nhận lịch hẹn", content);
+    }
+
+    @Override
+    public void sendAppointmentChangeNotification(Long appointmentId) {
+        AppointmentEntity appt = appointmentRepository.findById(appointmentId)
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy lịch hẹn"));
+
+        String content = buildAppointmentContent(appt, "Lịch hẹn đã thay đổi",
+                "🔄 Lịch hẹn của bệnh nhân %s với bác sĩ %s đã được cập nhật. Thời gian mới: %s.");
+
+        sendNotification(appt.getPatientEntity().getUserEntity().getId(), "🔄 Lịch hẹn đã thay đổi", content);
+    }
+
+    @Override
+    public void sendAppointmentCancelNotification(Long appointmentId) {
+        AppointmentEntity appt = appointmentRepository.findById(appointmentId)
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy lịch hẹn"));
+
+        String content = buildAppointmentContent(appt,"Lịch hẹn đã bị hủy",
+                "🚫 Lịch hẹn của bệnh nhân %s với bác sĩ %s vào lúc %s đã bị hủy.");
+
+        sendNotification(appt.getPatientEntity().getUserEntity().getId(), "🚫 Lịch hẹn bị hủy", content);
+    }
+
+
+
+    private String buildAppointmentContent(AppointmentEntity appt, String title, String pattern) {
+        String patientName = appt.getPatientEntity().getFullName();
+        String doctorName = appt.getDoctorEntity().getStaffEntity().getFullName();
+        String time = appt.getStartTime().toLocalDateTime().format(DateTimeFormatter.ofPattern("HH:mm dd/MM/yyyy"));
+        return String.format(pattern, patientName, doctorName, time);
+    }
+
+
+    // Thông báo sinh nhật
+    @Scheduled(cron = "0 0 8 * * *")
+    public int sendBirthdayNotifications() {
+        LocalDate today = LocalDate.now();
+
+        List<PatientEntity> birthdayPatients = patientRepository.findByBirthDateMonthDay(
+                today.getMonthValue(), today.getDayOfMonth());
+
+        int count = 0;
+
+        for (PatientEntity patient : birthdayPatients) {
+            try {
+                UserEntity user = patient.getUserEntity();
+                if (user == null || user.getId() == null) continue;
+
+                String patientName = patient.getFullName();
+                String email = patient.getEmail();
+
+                String title = "🎉 Chúc mừng sinh nhật!";
+                String content = "Chúc mừng sinh nhật " + patientName +
+                        "! Chúc bạn một ngày thật vui vẻ và nhiều sức khỏe 💖";
+
+                sendNotification(user.getId(), title, content); // Thông báo web
+
+                if (email != null && !email.isBlank()) {
+                    String emailSubject = "🎂 Chúc mừng sinh nhật từ Bệnh viện";
+                    String emailContent = "<h3>Chào " + patientName + ",</h3>"
+                            + "<p>🎉 Chúc bạn sinh nhật thật vui vẻ, hạnh phúc và thành công!</p>"
+                            + "<p>❤️ Cảm ơn bạn đã đồng hành cùng hệ thống của chúng tôi.</p>";
+
+                    emailService.sendEmail(email, emailSubject, emailContent);
+                }
+
+                count++;
+            } catch (Exception e) {
+                log.error("Lỗi khi gửi sinh nhật cho " + patient.getFullName(), e);
+            }
+        }
+
+        return count;
     }
 
 

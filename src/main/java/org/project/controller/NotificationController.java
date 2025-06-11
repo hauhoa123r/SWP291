@@ -75,87 +75,34 @@ public class NotificationController {
 
     }
 
-    // gửi tự động khi đặt lịch
+    // Thông báo đặt lịch
     @PostMapping("/appointment/{id}/notify")
     public ResponseEntity<String> notifyAppointment(@PathVariable("id") Long appointmentId) {
-        AppointmentEntity appt = appointmentRepository.findById(appointmentId)
-                .orElseThrow(() -> new RuntimeException("Không tìm thấy lịch hẹn"));
-
-        // Lấy thông tin liên quan
-        PatientEntity patient = appt.getPatientEntity();
-        UserEntity user = patient.getUserEntity();
-        StaffEntity doctor = appt.getDoctorEntity().getStaffEntity();
-
-        // Lấy tên
-        String patientName = patient.getFullName();
-        String doctorName = doctor.getFullName(); // Hoặc doctor.getUser().getFullName() nếu cần
-
-        // Lấy thời gian định dạng
-        String time = appt.getStartTime()
-                .toLocalDateTime().format(DateTimeFormatter.ofPattern("HH:mm dd/MM/yyyy"));
-
-        // Tiêu đề và nội dung thông báo
-        String title = "🔔 Xác nhận lịch hẹn";
-        String content = "Bệnh nhân " + patientName + " đã đặt lịch với bác sĩ " + doctorName + " vào lúc " + time + ".";
-
-        // Gửi email cho bệnh nhân (chính người có lịch hẹn) và user
-        notificationService.sendNotification(user.getId(), title, content);
-
-
+        notificationService.sendAppointmentNotification(appointmentId);
         return ResponseEntity.ok("Đã gửi thông báo xác nhận đặt lịch thành công.");
     }
 
-    // Thông báo thay đổi lịch hẹn
+    // Thông báo thay đổi lịch
     @PostMapping("/appointment/{id}/change")
     public ResponseEntity<String> notifyAppointmentChange(@PathVariable("id") Long appointmentId) {
-        AppointmentEntity appt = appointmentRepository.findById(appointmentId)
-                .orElseThrow(() -> new RuntimeException("Không tìm thấy lịch hẹn"));
-
-        PatientEntity patient = appt.getPatientEntity();
-        UserEntity user = patient.getUserEntity();
-        StaffEntity doctor = appt.getDoctorEntity().getStaffEntity();
-
-        String patientName = patient.getFullName();
-        String doctorName = doctor.getFullName();
-        String time = appt.getStartTime()
-                .toLocalDateTime().format(DateTimeFormatter.ofPattern("HH:mm dd/MM/yyyy"));
-
-        String title = "🔄 Lịch hẹn đã thay đổi";
-        String content = "Lịch hẹn của bệnh nhân " + patientName +
-                " với bác sĩ " + doctorName + " đã được cập nhật. Thời gian mới: " + time + ".";
-
-        // Gửi notification + email
-        notificationService.sendNotification(user.getId(), title, content);
-
+        notificationService.sendAppointmentChangeNotification(appointmentId);
         return ResponseEntity.ok("Đã gửi thông báo thay đổi lịch hẹn.");
     }
-
 
     // Thông báo hủy lịch
     @PostMapping("/appointment/{id}/cancel")
     public ResponseEntity<String> notifyAppointmentCancel(@PathVariable("id") Long appointmentId) {
-        AppointmentEntity appt = appointmentRepository.findById(appointmentId)
-                .orElseThrow(() -> new RuntimeException("Không tìm thấy lịch hẹn"));
-
-        PatientEntity patient = appt.getPatientEntity();
-        UserEntity user = patient.getUserEntity();
-        StaffEntity doctor = appt.getDoctorEntity().getStaffEntity();
-
-        String patientName = patient.getFullName();
-        String doctorName = doctor.getFullName();
-        String time = appt.getStartTime()
-                .toLocalDateTime().format(DateTimeFormatter.ofPattern("HH:mm dd/MM/yyyy"));
-
-        String title = "🚫 Lịch hẹn đã bị hủy";
-        String content = "Lịch hẹn của bệnh nhân " + patientName +
-                " với bác sĩ " + doctorName + " vào lúc " + time +
-                " đã bị hủy.";
-
-        // Gửi notification và email
-        notificationService.sendNotification(user.getId(), title, content);
-
+        notificationService.sendAppointmentCancelNotification(appointmentId);
         return ResponseEntity.ok("Đã gửi thông báo hủy lịch hẹn.");
     }
+
+    // Thông báo sinh nhật
+    @GetMapping("/remind-birthday")
+    public ResponseEntity<String> sendBirthdayReminders() {
+        int count = notificationService.sendBirthdayNotifications();
+        return ResponseEntity.ok("Đã gửi sinh nhật cho " + count + " bệnh nhân hôm nay.");
+    }
+
 
 
     // Thông báo nhắc trước 1 ngày
@@ -227,6 +174,9 @@ public class NotificationController {
 //
 //        return ResponseEntity.ok("Đã gửi thông báo kết quả xét nghiệm.");
 //    }
+
+
+
 
 
 
