@@ -10,6 +10,7 @@ import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 import org.project.enums.StaffRole;
 import org.project.enums.StaffType;
+//import org.project.enums.StaffType;
 
 import java.sql.Date;
 import java.util.LinkedHashSet;
@@ -38,7 +39,7 @@ public class StaffEntity {
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "department_id", nullable = false)
+    @JoinColumn(name = "department_id", insertable = false, updatable = false)
     private DepartmentEntity departmentEntity;
 
     @Size(max = 255)

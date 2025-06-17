@@ -39,5 +39,8 @@ public class PrescriptionItemEntity {
     @NotNull
     @Column(name = "duration_days", nullable = false)
     private Integer durationDays;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "prescription_id", insertable = false, updatable = false)
+    private PrescriptionEntity prescription;
 
 }

@@ -20,12 +20,15 @@ public class TestEntity {
     @Column(name = "test_id", nullable = false)
     private Long id;
 
-    @MapsId
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "test_id", nullable = false)
-    private ProductEntity productEntity;
+//    @MapsId
+//    @OneToOne(fetch = FetchType.LAZY, optional = false)
+//    @JoinColumn(name = "test_id", nullable = false)
+//    private ProductEntity productEntity;
 
     @OneToMany
     private Set<TestRequestItemEntity> testRequestItemEntities = new LinkedHashSet<>();
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "test_id")  // Liên kết với cột test_id trong bảng tests
+    private ProductEntity productEntity;
 }

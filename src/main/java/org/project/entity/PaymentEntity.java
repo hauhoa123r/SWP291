@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.project.enums.PaymentMethod;
+import org.project.enums.PaymentStatus;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -39,16 +41,13 @@ public class PaymentEntity {
     @OneToMany
     private Set<WalletTransactionEntity> walletTransactionEntities = new LinkedHashSet<>();
 
-/*
- TODO [Reverse Engineering] create field to map the 'payment_method' column
- Available actions: Define target Java type | Uncomment as is | Remove column mapping
-    @Column(name = "payment_method", columnDefinition = "enum not null")
-    private Object paymentMethod;
-*/
-/*
- TODO [Reverse Engineering] create field to map the 'payment_status' column
- Available actions: Define target Java type | Uncomment as is | Remove column mapping
-    @Column(name = "payment_status", columnDefinition = "enum not null")
-    private Object paymentStatus;
-*/
+    @Column(name = "payment_method", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private PaymentMethod paymentMethod;
+
+    @Column(name = "payment_status", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private PaymentStatus paymentStatus;
+
+
 }

@@ -76,9 +76,13 @@ public class ProductEntity {
     @OneToMany
     private Set<SupplierTransactionItemEntity> supplierTransactionItemEntities = new LinkedHashSet<>();
 
-    @OneToMany
-    private Set<ProductTagEntity> productTagEntities = new LinkedHashSet<>();
+//    @OneToMany
+//    private Set<ProductTagEntity> productTagEntities = new LinkedHashSet<>();
+//    @OneToOne
+//    private TestEntity testEntity;
+
     @OneToOne
+    @JoinColumn(name = "test_id") // Đảm bảo rằng bạn sử dụng cột test_id để liên kết
     private TestEntity testEntity;
 
     @ManyToMany

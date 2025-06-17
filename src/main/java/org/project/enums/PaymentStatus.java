@@ -1,15 +1,19 @@
 package org.project.enums;
 
 public enum PaymentStatus {
-    SUCECESS("success"),
-    FAILED("failed");
+    PENDING("Pending"),
+    SUCCESSED("Success");
 
-    private final String value;
 
-    PaymentStatus(String value) {
-        this.value = value;
+    private final String status;
+
+
+    PaymentStatus(String status) {
+        this.status = status;
     }
-    public String getValue() {
-        return value;
+
+
+    public String getStatus() {
+        return status;
     }
 }

@@ -1,6 +1,7 @@
 package org.project.service.impl;
 
 import org.project.converter.ConverterPharmacyProduct;
+import org.project.entity.PharmacistEntity;
 import org.project.model.response.PharmacyListResponse;
 import org.project.repository.PharmacyRepository;
 import org.project.service.PharmacyService;
@@ -19,7 +20,7 @@ public class PharmacyServiceImpl implements PharmacyService {
 
     @Override
     public List<PharmacyListResponse> getAllPharmacies() {
-        List<PharmacyProductEntity> pharmacyProductEntity = pharmacyRepositoryImpl.findAll();
+        List<PharmacistEntity> pharmacyProductEntity = pharmacyRepositoryImpl.findAll();
         List<PharmacyListResponse> pharmacyListResponse = toConverterPharmacy
                 .toConverterPharmacyProductList(pharmacyProductEntity);
         return pharmacyListResponse;

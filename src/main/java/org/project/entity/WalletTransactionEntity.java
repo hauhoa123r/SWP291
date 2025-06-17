@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.project.enums.WalletTransactionType;
 
 import java.math.BigDecimal;
 
@@ -40,10 +41,7 @@ public class WalletTransactionEntity {
     @Column(name = "description")
     private String description;
 
-/*
- TODO [Reverse Engineering] create field to map the 'wallet_transaction_type' column
- Available actions: Define target Java type | Uncomment as is | Remove column mapping
-    @Column(name = "wallet_transaction_type", columnDefinition = "enum not null")
-    private Object walletTransactionType;
-*/
+    @Column(name = "wallet_transaction_type", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private WalletTransactionType walletTransactionType;
 }
