@@ -39,6 +39,7 @@ public class NotificationServiceImpl implements NotificationService {
         return notificationRepository.findByUserEntity_IdOrderByCreatedAtDesc(userId);
     }
 
+
     // Tạo một thông báo trong DB (hiện trên web)
     @Override
     public NotificationEntity send(UserEntity user, String title, String content) {

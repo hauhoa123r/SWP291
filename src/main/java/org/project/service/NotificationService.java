@@ -14,4 +14,5 @@ public interface NotificationService {
     void sendAppointmentChangeNotification(Long appointmentId);
     void sendAppointmentCancelNotification(Long appointmentId);
     int sendTomorrowAppointmentReminders();
+
 }

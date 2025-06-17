@@ -107,6 +107,7 @@ public class NotificationController {
         return ResponseEntity.ok("Đã gửi thông báo hủy lịch hẹn.");
     }
 
+
     // Thông báo sinh nhật
     @GetMapping("/remind-birthday")
     public ResponseEntity<String> sendBirthdayReminders() {
