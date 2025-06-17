@@ -13,7 +13,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Setter
-@Entity(name = "TechnicianEntityEntity")
+@Entity
 @Table(name = "technicians", schema = "swp391")
 public class TechnicianEntity {
     @Id

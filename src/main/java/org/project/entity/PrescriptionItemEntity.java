@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-@Entity(name = "PrescriptionItemEntityEntity")
+@Entity
 @Table(name = "prescription_items", schema = "swp391")
 public class PrescriptionItemEntity {
     @EmbeddedId
@@ -39,8 +39,5 @@ public class PrescriptionItemEntity {
     @NotNull
     @Column(name = "duration_days", nullable = false)
     private Integer durationDays;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "prescription_id", insertable = false, updatable = false)
-    private PrescriptionEntity prescription;
 
 }

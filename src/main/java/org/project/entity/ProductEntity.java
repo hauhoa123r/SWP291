@@ -7,6 +7,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.Remove;
+import org.hibernate.annotations.ColumnDefault;
+import org.project.enums.Label;
+import org.project.enums.ProductStatus;
+import org.project.enums.ProductType;
 
 import java.math.BigDecimal;
 import java.util.LinkedHashSet;
@@ -16,7 +21,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Setter
-@Entity(name = "ProductEntityEntity")
+@Entity
 @Table(name = "products", schema = "swp391")
 public class ProductEntity {
     @Id
@@ -53,62 +58,54 @@ public class ProductEntity {
     @OneToMany
     private Set<CartItemEntity> cartItemEntities = new LinkedHashSet<>();
 
-    @OneToOne
+    @OneToOne(mappedBy = "productEntity")
+    private ServiceEntity serviceEntity;
+
+    @OneToOne(mappedBy = "productEntity")
     private MedicalProductEntity medicalProductEntity;
 
-    @OneToOne
+    @OneToOne(mappedBy = "productEntity")
     private MedicineEntity medicineEntity;
 
-    @OneToMany
+    @OneToMany(mappedBy = "productEntity")
     private Set<OrderItemEntity> orderItemEntities = new LinkedHashSet<>();
 
-    @OneToOne
+    @OneToOne(mappedBy = "productEntity")
     private PricingPlanEntity pricingPlanEntity;
 
-    @OneToMany
+    @OneToMany(mappedBy = "productEntity")
     private Set<ProductAdditionalInfoEntity> productAdditionalInfoEntities = new LinkedHashSet<>();
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "productEntities")
     private Set<CategoryEntity> categoryEntities = new LinkedHashSet<>();
 
     @ManyToMany
     private Set<ReviewEntity> reviewEntities = new LinkedHashSet<>();
-    @OneToMany
+
+    @OneToMany(mappedBy = "productEntity")
     private Set<SupplierTransactionItemEntity> supplierTransactionItemEntities = new LinkedHashSet<>();
 
-//    @OneToMany
-//    private Set<ProductTagEntity> productTagEntities = new LinkedHashSet<>();
-//    @OneToOne
-//    private TestEntity testEntity;
+    @OneToMany(mappedBy = "productEntity")
+    private Set<ProductTagEntity> productTagEntities = new LinkedHashSet<>();
 
-    @OneToOne
-    @JoinColumn(name = "test_id") // Đảm bảo rằng bạn sử dụng cột test_id để liên kết
+    @OneToOne(mappedBy = "productEntity")
     private TestEntity testEntity;
 
     @ManyToMany
-    private Set<DepartmentEntity> departmentEntities = new LinkedHashSet<>();
-    @ManyToMany
     private Set<UserEntity> userEntities = new LinkedHashSet<>();
 
-/*
- TODO [Reverse Engineering] create field to map the 'product_type' column
- Available actions: Define target Java type | Uncomment as is | Remove column mapping
+    @Enumerated(EnumType.STRING)
     @ColumnDefault("'MEDICAL_PRODUCT'")
     @Column(name = "product_type", columnDefinition = "enum not null")
-    private Object productType;
-*/
-/*
- TODO [Reverse Engineering] create field to map the 'product_status' column
- Available actions: Define target Java type | Uncomment as is | Remove column mapping
+    private ProductType productType;
+
+    @Enumerated(EnumType.STRING)
     @ColumnDefault("'ACTIVE'")
     @Column(name = "product_status", columnDefinition = "enum not null")
-    private Object productStatus;
-*/
-/*
- TODO [Reverse Engineering] create field to map the 'label' column
- Available actions: Define target Java type | Uncomment as is | Remove column mapping
+    private ProductStatus productStatus;
+
+    @Enumerated(EnumType.STRING)
     @ColumnDefault("'STANDARD'")
     @Column(name = "label", columnDefinition = "enum not null")
-    private Object label;
-*/
+    private Label label;
 }

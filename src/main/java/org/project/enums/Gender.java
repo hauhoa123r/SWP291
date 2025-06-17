@@ -1,17 +1,14 @@
 package org.project.enums;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
 public enum Gender {
-    male("Male"),
-    female("Female"),
-    other("Other");
-    ;
+    MALE("MALE"),
+    FEMALE("FEMALE"),
+    OTHER("OTHER");
+
     private final String value;
-
-    Gender(String value) {
-        this.value = value;
-    }
-
-    public String getValue() {
-        return value;
-    }
 }

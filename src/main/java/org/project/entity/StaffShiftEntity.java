@@ -13,7 +13,7 @@ import java.sql.Date;
 @NoArgsConstructor
 @Getter
 @Setter
-@Entity(name = "StaffShiftEntityEntity")
+@Entity
 @Table(name = "staff_shifts", schema = "swp391")
 public class StaffShiftEntity {
     @Id

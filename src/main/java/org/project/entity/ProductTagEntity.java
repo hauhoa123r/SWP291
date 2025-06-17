@@ -10,7 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-@Entity(name = "ProductTagEntityEntity")
+@Entity
 @Table(name = "product_tags", schema = "swp391")
 public class ProductTagEntity {
     @EmbeddedId

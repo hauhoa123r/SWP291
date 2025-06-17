@@ -10,7 +10,6 @@ import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 import org.project.enums.StaffRole;
 import org.project.enums.StaffType;
-//import org.project.enums.StaffType;
 
 import java.sql.Date;
 import java.util.LinkedHashSet;
@@ -29,7 +28,7 @@ public class StaffEntity {
     private Long id;
 
     @NotNull
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY, optional = false,orphanRemoval = true)
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity userEntity;
 
@@ -39,7 +38,7 @@ public class StaffEntity {
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "department_id", insertable = false, updatable = false)
+    @JoinColumn(name = "department_id", nullable = false)
     private DepartmentEntity departmentEntity;
 
     @Size(max = 255)
@@ -91,4 +90,12 @@ public class StaffEntity {
     @JoinColumn(name = "hospital_id", nullable = false)
     private HospitalEntity hospitalEntity;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "staff_reviews",
+            joinColumns = @JoinColumn(name = "staff_id"),
+            inverseJoinColumns = @JoinColumn(name = "staff_review_id"))
+    private Set<ReviewEntity> reviewEntities = new LinkedHashSet<>();
+
+    @OneToOne(mappedBy = "staffEntity", fetch = FetchType.LAZY)
+    private DoctorEntity doctorEntity;
 }

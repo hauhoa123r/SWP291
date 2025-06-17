@@ -17,7 +17,7 @@ import java.util.Map;
 @NoArgsConstructor
 @Getter
 @Setter
-@Entity(name = "MedicalRecordEntityEntity")
+@Entity
 @Table(name = "medical_records", schema = "swp391")
 public class MedicalRecordEntity {
     @Id
@@ -26,7 +26,7 @@ public class MedicalRecordEntity {
     private Long id;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne
     @JoinColumn(name = "patient_id", nullable = false)
     private PatientEntity patientEntity;
 
@@ -47,16 +47,6 @@ public class MedicalRecordEntity {
     @NotNull
     @Column(name = "main_complaint", nullable = false)
     private String mainComplaint;
-
-    @NotNull
-    @Column(name = "allergies", nullable = false)
-    @JdbcTypeCode(SqlTypes.JSON)
-    private Map<String, Object> allergies;
-
-    @NotNull
-    @Column(name = "chronic_diseases", nullable = false)
-    @JdbcTypeCode(SqlTypes.JSON)
-    private Map<String, Object> chronicDiseases;
 
     @NotNull
     @Lob

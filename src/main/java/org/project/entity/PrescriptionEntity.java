@@ -8,14 +8,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@Entity(name = "PrescriptionEntity")
+@Entity
 @Table(name = "prescriptions", schema = "swp391")
 public class PrescriptionEntity {
     @Id
@@ -28,7 +27,7 @@ public class PrescriptionEntity {
     @JoinColumn(name = "ingredient_request_id", nullable = false)
     private IngredientRequestEntity ingredientRequestEntity;
 
-    @OneToMany(mappedBy = "prescription", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<PrescriptionItemEntity> prescriptionItems;
+    @OneToMany
+    private Set<PrescriptionItemEntity> prescriptionItemEntities = new LinkedHashSet<>();
 
 }

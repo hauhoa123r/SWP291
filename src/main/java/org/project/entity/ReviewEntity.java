@@ -14,7 +14,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Setter
-@Entity(name = "ReviewEntityEntity")
+@Entity
 @Table(name = "reviews", schema = "swp391")
 public class ReviewEntity {
     @Id
@@ -38,7 +38,8 @@ public class ReviewEntity {
 
     @ManyToMany(mappedBy = "reviewEntities")
     private Set<ProductEntity> productEntities = new LinkedHashSet<>();
-    @ManyToMany
+
+    @ManyToMany(mappedBy = "reviewEntities")
     private Set<StaffEntity> staffEntities = new LinkedHashSet<>();
 
 /*

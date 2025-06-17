@@ -12,7 +12,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @Getter
 @Setter
-@Entity(name = "UserCouponEntityEntity")
+@Entity
 @Table(name = "user_coupons", schema = "swp391")
 public class UserCouponEntity {
     @EmbeddedId

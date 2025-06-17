@@ -12,7 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-@Entity(name = "ServiceFeatureEntityEntity")
+@Entity
 @Table(name = "service_features", schema = "swp391")
 public class ServiceFeatureEntity {
     @Id

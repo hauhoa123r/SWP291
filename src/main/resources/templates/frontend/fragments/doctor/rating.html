@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <title>Document</title>
+</head>
+<body>
+<div th:fragment="rating(averageRating, reviewCount)">
+    <div class="share iq-team-social position-absolute">
+        <div class="p-2 bg-light rounded">
+            <div class="stars" th:if="${reviewCount > 0}">
+                <i class="fas fa-star text-warning"></i>
+                <span class="ms-1" th:text="${#numbers.formatDecimal(averageRating,1 , 1, 'POINT')}">4.5</span>
+            </div>
+            <div class="stars" th:if="${reviewCount == 0}">
+                <i class="fas fa-star text-primary"></i>
+                <span class="ms-1" th:text="0">No reviews yet</span>
+            </div>
+            <small th:text="${reviewCount + ' reviews'}">128 reviews</small>
+        </div>
+    </div>
+</div>
+</body>
+</html>

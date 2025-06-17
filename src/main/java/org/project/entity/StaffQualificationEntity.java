@@ -7,7 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-//import org.project.enums.QualificationType;
+import org.project.enums.QualificationType;
 
 import java.sql.Date;
 
@@ -49,7 +49,7 @@ public class StaffQualificationEntity {
     @Column(name = "url")
     private String url;
 
-//    @Enumerated(EnumType.STRING)
-//    @Column(name = "qualification_type")
-//    private QualificationType qualificationType;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "qualification_type")
+    private QualificationType qualificationType;
 }

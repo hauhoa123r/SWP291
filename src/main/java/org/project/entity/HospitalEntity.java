@@ -15,7 +15,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Setter
-@Entity(name = "HospitalEntityEntity")
+@Entity
 @Table(name = "hospitals", schema = "swp391")
 public class HospitalEntity {
     @Id
@@ -50,7 +50,7 @@ public class HospitalEntity {
     @OneToMany(mappedBy = "hospital")
     private Set<DepartmentEntity> departmentEntities = new LinkedHashSet<>();
 
-    @OneToMany
+    @OneToMany(mappedBy = "hospitalEntity", fetch =  FetchType.LAZY)
     private Set<StaffEntity> staffEntities = new LinkedHashSet<>();
 
 }

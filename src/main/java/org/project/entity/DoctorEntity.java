@@ -13,19 +13,18 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Setter
-@Entity(name = "DoctorEntityEntity")
+@Entity
 @Table(name = "doctors", schema = "swp391")
 public class DoctorEntity {
     @Id
     @Column(name = "doctor_id", nullable = false)
     private Long id;
 
-    @MapsId
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "doctor_id", nullable = false)
     private StaffEntity staffEntity;
 
-    @OneToMany
+    @OneToMany(mappedBy = "doctorEntity", fetch = FetchType.LAZY)
     private Set<AppointmentEntity> appointmentEntities = new LinkedHashSet<>();
 
 /*

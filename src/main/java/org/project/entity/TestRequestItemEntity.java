@@ -15,7 +15,7 @@ import java.util.Map;
 @NoArgsConstructor
 @Getter
 @Setter
-@Entity(name = "TestRequestItemEntityEntity")
+@Entity
 @Table(name = "test_request_items", schema = "swp391")
 public class TestRequestItemEntity {
     @EmbeddedId

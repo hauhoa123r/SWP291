@@ -1,0 +1,435 @@
+<!doctype html>
+<html class="landing-pages" data-bs-theme="light" dir="ltr" lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <title>Kivicare | Medical Clinic & Patient Management Html Template</title>
+    <!-- Config Options -->
+    <meta content='{&quot;saveLocal&quot;:&quot;sessionStorage&quot;,&quot;storeKey&quot;:&quot;huisetting&quot;,&quot;setting&quot;:{&quot;app_name&quot;:{&quot;value&quot;:&quot;Kivicare&quot;}}}'
+          name="setting_options">
+    <!-- Google Font Api KEY-->
+    <meta content="AIzaSyBG58yNdAjc20_8jAvLNSVi9E4Xhwjau_k" name="google_font_api">
+    <!-- Favicon -->
+    <link href="./assets/images/favicon.ico" rel="shortcut icon" th:href="@{/frontend/assets/images/favicon.ico}"/>
+
+    <!-- Library / Plugin Css Build -->
+    <link href="./assets/css/core/libs.min.css" rel="stylesheet" th:href="@{/frontend/assets/css/core/libs.min.css}"/>
+
+    <!-- flaticon css -->
+    <link href="./assets/vendor/flaticon/css/flaticon.css" rel="stylesheet"
+          th:href="@{/frontend/assets/vendor/flaticon/css/flaticon.css}"
+    />
+
+    <!-- font-awesome css -->
+    <link href="./assets/vendor/font-awesome/css/all.min.css" rel="stylesheet"
+          th:href="@{/frontend/assets/vendor/font-awesome/css/all.min.css}"
+    />
+
+    <!-- SwiperSlider css -->
+    <link href="./assets/vendor/swiperSlider/swiper-bundle.min.css" rel="stylesheet"
+          th:href="@{/frontend/assets/vendor/swiperSlider/swiper-bundle.min.css}"
+    >
+
+    <!-- Kivicare Design System Css -->
+    <link href="./assets/css/kivicare.min.css?v=1.4.1" rel="stylesheet"
+          th:href="@{/frontend/assets/css/kivicare.min.css?v=1.4.1}"
+    />
+
+    <!-- Custom Css -->
+    <link href="./assets/css/custom.min.css?v=1.4.1" rel="stylesheet"
+          th:href="@{/frontend/assets/css/custom.min.css?v=1.4.1}"/>
+
+    <!-- Rtl Css -->
+    <link href="./assets/css/rtl.min.css?v=1.4.1" rel="stylesheet"
+          th:href="@{/frontend/assets/css/rtl.min.css?v=1.4.1}"/>
+
+    <!-- Customizer Css -->
+    <link href="./assets/css/customizer.min.css?v=1.4.1" rel="stylesheet"
+          th:href="@{/frontend/assets/css/customizer.min.css?v=1.4.1}"
+    />
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,300;1,400;1,500&display=swap"
+          rel="stylesheet">
+
+
+    <meta content='' name="page_colors">
+</head>
+<body class=" body-bg landing-pages">
+<span class="screen-darken"></span>
+<!-- loader Start -->
+<div id="loading">
+    <div class="loader simple-loader">
+        <div class="loader-body">
+            <img class="light-loader img-fluid " src="./assets/images/loader.gif"
+                 th:src="@{/frontend/assets/images/loader.gif}" width="200">
+        </div>
+    </div>
+</div>
+<!-- loader END -->
+<main class="main-content">
+    <div class="position-relative">
+        <!--Nav Start-->
+        <div th:replace="/frontend/fragments/header.html"></div>
+        <div class="offcanvas offcanvas-end " id="right-panel-toggle" tabindex="-1">
+            <div class="offcanvas-header border-bottom px-5 mb-5 py-4">
+                <a href="./index.html" th:href="@{/frontend/index.html}">
+                   <span class="logo-normal">
+                      <img class="img-fluid" loading="lazy"
+                           src="./assets/images/logo/logo.png" th:src="@{/frontend/assets/images/logo/logo.png}">
+                   </span>
+                </a>
+                <button aria-label="Close" class="btn-close text-reset"
+                        data-bs-dismiss="offcanvas" type="button"></button>
+            </div>
+            <div class="offcanvas-body px-5 d-flex flex-column justify-content-between">
+                <div class="mb-5 pb-5 border-bottom">
+                    <h4 class="mb-3">Gallery:</h4>
+                    <div class="row row-cols-xl-3 row-cols-md-2 row-cols-2 gx-3 gy-3">
+                        <div class="col">
+                            <a data-fslightbox="sidebar-gallery"
+                               href="./assets/images/gallery/blog-1.jpg"
+                               th:href="@{/frontend/assets/images/gallery/blog-1.jpg}">
+                                <img alt="profile-image"
+                                     class="img-fluid w-100"
+
+                                     loading="lazy"
+                                     src="./assets/images/gallery/blog-1.jpg"
+                                     th:src="@{/frontend/assets/images/gallery/blog-1.jpg}">
+                            </a>
+                        </div>
+                        <div class="col">
+                            <a data-fslightbox="sidebar-gallery"
+                               href="./assets/images/gallery/blog-2.jpg"
+                               th:href="@{/frontend/assets/images/gallery/blog-2.jpg}">
+                                <img alt="profile-image"
+                                     class="img-fluid w-100"
+
+                                     loading="lazy"
+                                     src="./assets/images/gallery/blog-2.jpg"
+                                     th:src="@{/frontend/assets/images/gallery/blog-2.jpg}">
+                            </a>
+                        </div>
+                        <div class="col">
+                            <a data-fslightbox="sidebar-gallery"
+                               href="./assets/images/gallery/blog-3.jpg"
+                               th:href="@{/frontend/assets/images/gallery/blog-3.jpg}">
+                                <img alt="profile-image"
+                                     class="img-fluid w-100"
+
+                                     loading="lazy"
+                                     src="./assets/images/gallery/blog-3.jpg"
+                                     th:src="@{/frontend/assets/images/gallery/blog-3.jpg}">
+                            </a>
+                        </div>
+                        <div class="col">
+                            <a data-fslightbox="sidebar-gallery"
+                               href="./assets/images/gallery/blog-4.jpg"
+                               th:href="@{/frontend/assets/images/gallery/blog-4.jpg}">
+                                <img alt="profile-image"
+                                     class="img-fluid w-100"
+
+                                     loading="lazy"
+                                     src="./assets/images/gallery/blog-4.jpg"
+                                     th:src="@{/frontend/assets/images/gallery/blog-4.jpg}">
+                            </a>
+                        </div>
+                        <div class="col">
+                            <a data-fslightbox="sidebar-gallery"
+                               href="./assets/images/gallery/blog-5.jpg"
+                               th:href="@{/frontend/assets/images/gallery/blog-5.jpg}">
+                                <img alt="profile-image"
+                                     class="img-fluid w-100"
+
+                                     loading="lazy"
+                                     src="./assets/images/gallery/blog-5.jpg"
+                                     th:src="@{/frontend/assets/images/gallery/blog-5.jpg}">
+                            </a>
+                        </div>
+                        <div class="col">
+                            <a data-fslightbox="sidebar-gallery"
+                               href="./assets/images/gallery/blog-6.jpg"
+                               th:href="@{/frontend/assets/images/gallery/blog-6.jpg}">
+                                <img alt="profile-image"
+                                     class="img-fluid w-100"
+
+                                     loading="lazy"
+                                     src="./assets/images/gallery/blog-6.jpg"
+                                     th:src="@{/frontend/assets/images/gallery/blog-6.jpg}">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-5 pb-5 border-bottom">
+                    <h4 class="mb-3">Contact Us:</h4>
+                    <p>4517, Washington Ave, Manchester, Kentucky, England 524163.</p>
+                    <p>kivicare@example.com</p>
+                    <p>Phone : (480) 555-0103</p>
+                </div>
+                <div class="mb-5">
+                    <h4 class="mb-3">Follow Us:</h4>
+                    <ul class="iq-social list-inline d-flex align-items-center gap-3 m-0">
+                        <li>
+                            <a href="https://facebook.com/">
+                                <svg class="base-circle animated" height="38" viewBox="0 0 50 50"
+                                     width="38">
+                                    <circle class="c1" cx="25" cy="25" fill="none" r="23"
+                                            stroke="#6e7990"
+                                            stroke-width="1"></circle>
+                                </svg>
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://x.com/">
+                                <svg class="base-circle animated" height="38" viewBox="0 0 50 50"
+                                     width="38">
+                                    <circle class="c1" cx="25" cy="25" fill="none" r="23"
+                                            stroke="#6e7990"
+                                            stroke-width="1"></circle>
+                                </svg>
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.google.com/">
+                                <svg class="base-circle animated" height="38" viewBox="0 0 50 50"
+                                     width="38">
+                                    <circle class="c1" cx="25" cy="25" fill="none" r="23"
+                                            stroke="#6e7990"
+                                            stroke-width="1"></circle>
+                                </svg>
+                                <i class="fab fa-google"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <p class="pt-3 mb-0 border-top">©
+                    <script>document.write(new Date().getFullYear())</script>
+                    KiviCare, All
+                    Rights Reserved.
+                </p>
+            </div>
+        </div>        <!--bread-crumb-->
+        <div class="iq-breadcrumb bg-primary-subtle">
+            <div class="container">
+                <nav aria-label="breadcrumb" class="text-center">
+                    <h2 class="title">Service</h2>
+                    <ol class="breadcrumb justify-content-center mt-2 mb-0">
+                        <li class="breadcrumb-item">
+                            <a href="index.html">Home</a>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            Service
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>        <!--bread-crumb-->
+
+    </div>
+    <div class="section-padding">
+        <div class="container">
+            <div class="row row-cols-xl-3 row-cols-md-2 row-cols-1">
+                <div class="col mt-5 text-center" th:each="service : ${services}">
+                    <div class="iq-fancy-box position-relative p-md-5 bg-light rounded">
+                        <div class="overflow-hidden mb-5">
+                            <img class="img-fluid w-100 service-img" loading="lazy"
+                                 src="./assets/images//general/doctor.svg"
+                                 th:src="${service.imageUrl}">
+                        </div>
+                        <div class="iq-fancy-box-content mt-5">
+                            <h4 class="mb-2" th:text="${service.name}">Qualified Doctors</h4>
+                            <p class="text-body m-0 line-count-3" th:text="${service.description}">A person who holds a
+                                degree recognised by the Medical
+                                Council is registered. </p>
+                            <div class="fencybox-button mt-3 mt-md-5">
+                                <div class="iq-btn-container">
+                                    <a class="iq-button iq-btn-link text-capitalize" href="./service-detail.html"
+                                       th:href="${'/service/detail/' + service.id}"
+                                    >
+                                        read more
+                                        <span class="btn-link-icon">
+                                              <svg fill="none" height="10" viewBox="0 0 8 8"
+                                                   width="10"
+                                                   xmlns="http://www.w3.org/2000/svg">
+                                                 <path d="M7.32046 4.70834H4.74952V7.25698C4.74952 7.66734 4.41395 8 4 8C3.58605 8 3.25048 7.66734 3.25048 7.25698V4.70834H0.679545C0.293423 4.6687 0 4.34614 0 3.96132C0 3.5765 0.293423 3.25394 0.679545 3.21431H3.24242V0.673653C3.28241 0.290878 3.60778 0 3.99597 0C4.38416 0 4.70954 0.290878 4.74952 0.673653V3.21431H7.32046C7.70658 3.25394 8 3.5765 8 3.96132C8 4.34614 7.70658 4.6687 7.32046 4.70834Z"
+                                                       fill="currentColor"></path>
+                                              </svg>
+                                           </span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <nav aria-label="Service pagination" class="mt-4">
+        <ul class="pagination justify-content-center">
+            <!-- Previous button -->
+            <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+                <a aria-disabled="true"
+                   class="page-link"
+                   tabindex="-1" th:href="${'/service/page/' + (currentPage - 1)}">Previous</a>
+            </li>
+
+            <!-- First page -->
+            <li class="page-item" th:if="${currentPage > 2}">
+                <a class="page-link"
+                   th:href="@{/service/page/0}">1</a>
+            </li>
+            <li class="page-item disabled" th:if="${currentPage > 2}">
+                <span class="page-link">...</span>
+            </li>
+
+            <!-- Page numbers around current -->
+            <li class="page-item"
+                th:classappend="${i} == ${currentPage} ? 'active'"
+                th:each="i : ${#numbers.sequence((currentPage > 1 ? currentPage - 1 : 0), (currentPage + 1 < totalPages ? currentPage + 1 : totalPages - 1))}">
+                <a class="page-link"
+                   th:href="${'/service/page/' + i}"
+                   th:text="${i + 1}"></a>
+            </li>
+
+            <!-- Last page -->
+            <li class="page-item disabled" th:if="${currentPage < totalPages - 3}">
+                <span class="page-link">...</span>
+            </li>
+            <li class="page-item" th:if="${currentPage < totalPages - 2}">
+                <a class="page-link"
+                   th:href="${'/service/page/' + (totalPages - 1)}"
+                   th:text="${totalPages}"></a>
+            </li>
+
+            <!-- Next button -->
+            <li class="page-item" th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
+                <a class="page-link"
+                   th:href="${'/service/page/' + (currentPage + 1)}">Next</a>
+            </li>
+        </ul>
+    </nav>
+</main>
+<!-- Wrapper End -->
+<!-- Footer start -->
+<div th:replace="/frontend/fragments/footer.html"></div>
+<!-- footer end -->
+
+<!-- setting -->
+<div class="rtl-box">
+    <a aria-controls="live-customizer" class="btn btn-icon btn-setting bg-primary" data-bs-target="#live-customizer"
+       data-bs-toggle="offcanvas" id="settingbutton" role="button">
+        <svg fill="white" height="1.875em" viewBox="0 0 20 20" width="1.875em" xmlns="http://www.w3.org/2000/svg">
+            <path clip-rule="evenodd"
+                  d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z"
+                  fill-rule="evenodd"/>
+        </svg>
+    </a>
+    <div aria-labelledby="live-customizer-label" aria-modal="true"
+         class="offcanvas offcanvas-end live-customizer on-rtl end"
+         data-bs-backdrop="false" data-bs-scroll="true" id="live-customizer" role="dialog"
+         tabindex="-1">
+        <div class="offcanvas-header gap-3 pb-2">
+            <div class="d-flex align-items-center">
+                <h5 class="offcanvas-title" id="live-customizer-label">Language Mode</h5>
+            </div>
+            <div class="d-flex gap-1 align-items-center">
+                <button aria-label="Reset All Settings" class="btn btn-icon text-primary border-0"
+                        data-bs-original-title="Reset All Settings"
+                        data-bs-placement="left" data-bs-toggle="tooltip"
+                        data-reset="settings">
+                        <span class="btn-inner">
+                            <i class="fas fa-sync-alt"></i>
+                        </span>
+                </button>
+                <button aria-label="Close" class="btn btn-icon btn-close px-0 shadow-none" data-bs-dismiss="offcanvas"
+                        type="button">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <div class="offcanvas-body pt-0">
+            <div class="modes row row-cols-2 gx-2">
+                <div class="col">
+                    <div class="text-center w-100" data-setting="attribute">
+                        <input checked class="btn-check" data-prop="dir" id="theme-scheme-direction-ltr"
+                               name="theme_scheme_direction"
+                               type="radio" value="ltr">
+                        <label class="btn dir-btn cutomizer-button w-100" for="theme-scheme-direction-ltr">
+                            LTR
+                        </label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="text-center w-100" data-setting="attribute">
+                        <input class="btn-check" data-prop="dir" id="theme-scheme-direction-rtl"
+                               name="theme_scheme_direction" type="radio"
+                               value="rtl">
+                        <label class="btn dir-btn cutomizer-button w-100" for="theme-scheme-direction-rtl">
+                            RTL
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>    <!-- setting -->
+
+<!-- Back To Top -->
+<div id="back-to-top" style="display: none;">
+    <a class="p-0 btn btn-sm position-fixed top border-0 text-white" href="#top" id="top">
+        <svg fill="none" viewBox="0 0 24 24" width="30" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 15.5L12 8.5L19 15.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                  stroke-width="1.5"></path>
+        </svg>
+    </a>
+</div>
+<!-- Back To Top -->
+
+<!-- Library Bundle Script -->
+<script src="./assets/js/core/libs.min.js" th:src="@{/frontend/assets/js/core/libs.min.js}"></script>
+<!-- Plugin Scripts -->
+
+<!-- Slider-tab Script -->
+<script src="./assets/js/plugins/slider-tabs.js" th:src="@{/frontend/assets/js/plugins/slider-tabs.js}"></script>
+
+<!-- fslightbox Script -->
+<script defer src="./assets/js/plugins/fslightbox.js" th:src="@{/frontend/assets/js/plugins/fslightbox.js}"></script>
+
+
+<!-- Circle-Progress Script -->
+<script src="./assets/js/plugins/circle-progress.js"
+        th:src="@{/frontend/assets/js/plugins/circle-progress.js}"></script>
+<script defer
+        src="./assets/js/plugins/custom-circle-progress.js"
+        th:src="@{/frontend/assets/js/plugins/custom-circle-progress.js}"></script>
+
+<!-- SwiperSlider Script -->
+<script src="./assets/vendor/swiperSlider/swiper-bundle.min.js"
+        th:src="@{/frontend/assets/vendor/swiperSlider/swiper-bundle.min.js}"
+></script>
+<!-- Lodash Utility -->
+<script src="./assets/vendor/lodash/lodash.min.js" th:src="@{/frontend/assets/vendor/lodash/lodash.min.js}"></script>
+<!-- Utilities Functions -->
+<script src="./assets/js/iqonic-script/utility.min.js"
+        th:src="@{/frontend/assets/js/iqonic-script/utility.min.js}"></script>
+<!-- Settings Script -->
+<script src="./assets/js/iqonic-script/setting.min.js"
+        th:src="@{/frontend/assets/js/iqonic-script/setting.min.js}"></script>
+<!-- Settings Init Script -->
+<script src="./assets/js/iqonic-script/setting-init.js"
+        th:src="@{/frontend/assets/js/iqonic-script/setting-init.js}"></script>
+<!-- External Library Bundle Script -->
+<script src="./assets/js/core/external.min.js" th:src="@{/frontend/assets/js/core/external.min.js}"></script>
+<!-- Kivicare Script -->
+<script defer src="./assets/js/kivicare.js?v=1.4.1" th:src="@{/frontend/assets/js/kivicare.js?v=1.4.1}"></script>
+<script defer src="./assets/js/kivicare-advance.js?v=1.4.1"
+        th:src="@{/frontend/assets/js/kivicare-advance.js?v=1.4.1}"></script>
+<!-- Kivicare Pages Script -->
+<script defer src="./assets/js/slider.js" th:src="@{/frontend/assets/js/slider.js}"></script>
+<script defer src="./assets/js/scroll-text.js" th:src="@{/frontend/assets/js/scroll-text.js}"></script>
+</body>
+</html>

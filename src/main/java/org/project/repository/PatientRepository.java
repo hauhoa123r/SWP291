@@ -8,5 +8,7 @@ import java.util.List;
 
 @Repository
 public interface PatientRepository extends JpaRepository<PatientEntity, Long> {
-    List<PatientEntity> findByUserEntity_Id(Long userId);
+
+    List<PatientEntity> findAllByUserEntity_Id(Long userId);
+
 }

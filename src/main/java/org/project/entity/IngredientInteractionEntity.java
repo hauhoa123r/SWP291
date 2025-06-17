@@ -10,7 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-@Entity(name = "IngredientInteractionEntityEntity")
+@Entity
 @Table(name = "ingredient_interactions", schema = "swp391")
 public class IngredientInteractionEntity {
     @EmbeddedId

@@ -1,17 +1,15 @@
 package org.project.enums;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
 public enum StaffRole {
-    DOCTOR("Doctor"),
-    NURSE("Nurse"),
-    COORDINATOR("Coordinator");
-
-
+    DOCTOR("doctor"),
+    TECHNICIAN("technician"),
+    SCHEDULING_COORDINATOR("scheduling_coordinator"),
+    PHARMACIST("pharmacist"),
+    INVENTORY_MANAGER("inventory_manager");
     private final String value;
-    StaffRole(String value) {
-        this.value = value;
-    }
-
-    public String getValue() {
-        return value;
-    }
 }

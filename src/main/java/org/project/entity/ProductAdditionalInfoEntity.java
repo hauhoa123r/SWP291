@@ -12,7 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-@Entity(name = "ProductAdditionalInfoEntityEntity")
+@Entity
 @Table(name = "product_additional_infos", schema = "swp391")
 public class ProductAdditionalInfoEntity {
     @Id

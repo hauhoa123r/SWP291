@@ -16,7 +16,7 @@ import java.sql.Date;
 @NoArgsConstructor
 @Getter
 @Setter
-@Entity(name = "SupplierTransactionItemEntityEntity")
+@Entity
 @Table(name = "supplier_transaction_items", schema = "swp391")
 public class SupplierTransactionItemEntity {
     @EmbeddedId

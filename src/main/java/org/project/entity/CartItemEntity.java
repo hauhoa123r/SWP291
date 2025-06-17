@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-@Entity(name = "CartItemEntityEntity")
+@Entity
 @Table(name = "cart_items", schema = "swp391")
 public class CartItemEntity {
     @EmbeddedId

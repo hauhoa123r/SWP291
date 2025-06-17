@@ -10,7 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-@Entity(name = "WishlistProductEntityEntity")
+@Entity
 @Table(name = "wishlist_products", schema = "swp391")
 public class WishlistProductEntity {
     @EmbeddedId
