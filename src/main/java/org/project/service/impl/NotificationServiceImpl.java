@@ -110,6 +110,31 @@ public class NotificationServiceImpl implements NotificationService {
         sendNotification(appt.getPatientEntity().getUserEntity().getId(), "🚫 Lịch hẹn bị hủy", content);
     }
 
+    @Scheduled(cron = "0 0 8 * * *")
+    public int sendTomorrowAppointmentReminders() {
+        LocalDateTime tomorrowStart = LocalDate.now().plusDays(1).atStartOfDay();
+        LocalDateTime tomorrowEnd = tomorrowStart.plusDays(1).minusSeconds(1);
+
+        List<AppointmentEntity> appts = appointmentRepository.findByStartTimeBetween(tomorrowStart, tomorrowEnd);
+
+        int count = 0;
+
+        for (AppointmentEntity appt : appts) {
+            try {
+                String content = buildAppointmentContent(appt, "📅 Nhắc lịch khám",
+                        "📅 Nhắc nhở: Lịch khám của bệnh nhân %s với bác sĩ %s sẽ diễn ra vào lúc %s.");
+                sendNotification(appt.getPatientEntity().getUserEntity().getId(), "📅 Nhắc lịch khám", content);
+                count++;
+            } catch (Exception e) {
+                log.error("Lỗi khi gửi nhắc lịch hẹn ngày mai cho ID: " + appt.getId(), e);
+            }
+        }
+
+        return count;
+    }
+
+
+
 
 
     private String buildAppointmentContent(AppointmentEntity appt, String title, String pattern) {

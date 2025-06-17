@@ -1,7 +1,6 @@
 package org.project.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.project.entity.*;
 import org.project.repository.AppointmentRepository;
 import org.project.repository.PatientRepository;
@@ -10,11 +9,10 @@ import org.project.service.EmailService;
 import org.project.service.NotificationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
 import java.util.List;
 
 @Controller
@@ -75,6 +73,19 @@ public class NotificationController {
 
     }
 
+    //web
+    @GetMapping("/view")
+    public String getMyNotifications(Model model) {
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        String username = auth.getName();
+//        UserEntity user = userRepository.findByUsername(username).orElseThrow();
+        Long userId = 1L;
+        List<NotificationEntity> notifications = notificationService.getAllByUserId(userId);
+        model.addAttribute("notifications", notifications);
+        return "notification"; // trỏ tới notification.html
+    }
+
+
     // Thông báo đặt lịch
     @PostMapping("/appointment/{id}/notify")
     public ResponseEntity<String> notifyAppointment(@PathVariable("id") Long appointmentId) {
@@ -103,34 +114,11 @@ public class NotificationController {
         return ResponseEntity.ok("Đã gửi sinh nhật cho " + count + " bệnh nhân hôm nay.");
     }
 
-
-
     // Thông báo nhắc trước 1 ngày
     @GetMapping("/remind-tomorrow")
     public ResponseEntity<String> sendReminderForTomorrowAppointments() {
-        LocalDateTime tomorrowStart = LocalDate.now().plusDays(1).atStartOfDay();
-        LocalDateTime tomorrowEnd = tomorrowStart.plusDays(1).minusSeconds(1);
-
-        List<AppointmentEntity> appts = appointmentRepository.findByStartTimeBetween(tomorrowStart, tomorrowEnd);
-
-        for (AppointmentEntity appt : appts) {
-            PatientEntity patient = appt.getPatientEntity();
-            UserEntity user = patient.getUserEntity();
-            StaffEntity doctor = appt.getDoctorEntity().getStaffEntity();
-
-            String doctorName = doctor.getFullName();
-            String patientName = patient.getFullName();
-            String time = appt.getStartTime()
-                    .toLocalDateTime().format(DateTimeFormatter.ofPattern("HH:mm dd/MM/yyyy"));
-
-            String title = "📅 Nhắc lịch khám";
-            String content = "Nhắc nhở: Lịch khám của bệnh nhân " + patientName +
-                    " với bác sĩ " + doctorName + " sẽ diễn ra vào lúc " + time + ".";
-
-            notificationService.sendNotification(user.getId(), title, content);
-        }
-
-        return ResponseEntity.ok("Đã gửi thông báo nhắc lịch cho các cuộc hẹn ngày mai.");
+        int count = notificationService.sendTomorrowAppointmentReminders();
+        return ResponseEntity.ok("Đã gửi thông báo nhắc lịch cho "+ count +" cuộc hẹn ngày mai.");
     }
 
 
