@@ -9,9 +9,10 @@ public class PaymentResponse {
     private String paymentMethod;
     private String paymentStatus;
     private String paymentTime;
-    private String orderCode; // Nếu cần, hoặc bỏ qua
+    private String orderCode;
+    private String fullName;
 
-    // Getter và Setter
+
     public Long getPaymentId() {
         return paymentId;
     }
@@ -59,4 +60,13 @@ public class PaymentResponse {
     public void setOrderCode(String orderCode) {
         this.orderCode = orderCode;
     }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
 }
+

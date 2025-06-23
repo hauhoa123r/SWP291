@@ -1,53 +1,37 @@
 package org.project.controller;
 
-import org.project.entity.*;
-import org.project.enums.PaymentMethod;
+import org.project.model.response.PaymentResponse;
 import org.project.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.math.BigDecimal;
-
-@RestController
-@RequestMapping("/api/payments")
+@Controller
+@RequestMapping("/payment")
 public class PaymentController {
-    @Autowired
+
+    private final int PAGE_SIZE = 10;
     private PaymentService paymentService;
-    @GetMapping("/calculateTotalAmount")
-    public BigDecimal calculateTotalAmount(@RequestParam Long prescriptionId) {
-        return paymentService.calculateTotalAmount(prescriptionId);
+
+    @Autowired
+    public void setPaymentService(PaymentService paymentService) {
+        this.paymentService = paymentService;
     }
-    @GetMapping("/checkWalletBalance")
-    public String checkWalletBalance(@RequestParam Long userId, @RequestParam BigDecimal totalAmount) {
-        try {
-            WalletEntity wallet = paymentService.checkWalletBalance(userId, totalAmount);
-            return "Sufficient balance in wallet ID " + wallet.getId();
-        } catch (RuntimeException e) {
-            return "Insufficient balance: " + e.getMessage();
-        }
+
+    @RequestMapping
+    public String payment() {
+        return "dashboard/patient-payments";
     }
-    @PostMapping("/createPayment")
-    public String createPayment(@RequestParam BigDecimal totalAmount, @RequestParam PaymentMethod paymentMethod) {
-        PaymentEntity payment = paymentService.createPayment(totalAmount, paymentMethod);
-        return "Payment created with ID: " + payment.getId() + " and status: " + payment.getPaymentStatus();
-    }
-    @PostMapping("/updateWalletBalance")
-    public String updateWalletBalance(@RequestParam Long userId, @RequestParam BigDecimal totalAmount) {
-        WalletEntity wallet = paymentService.checkWalletBalance(userId, totalAmount);
-        paymentService.updateWalletBalance(wallet, totalAmount);
-        return "Wallet balance updated for wallet ID: " + wallet.getId();
-    }
-    @PostMapping("/saveWalletTransaction")
-    public String saveWalletTransaction(@RequestParam Long walletId, @RequestParam Long paymentId, @RequestParam BigDecimal totalAmount, @RequestParam Long prescriptionId) {
-        WalletEntity wallet = new WalletEntity();
-        PaymentEntity payment = new PaymentEntity();
-        paymentService.saveWalletTransaction(wallet, payment, totalAmount, prescriptionId);
-        return "Wallet transaction saved for payment ID: " + paymentId;
-    }
-    @PostMapping("/finalizePayment")
-    public String finalizePayment(@RequestParam Long paymentId) {
-        PaymentEntity payment = new PaymentEntity();
-        paymentService.finalizePayment(payment);
-        return "Payment finalized with status: " + payment.getPaymentStatus();
+
+    @RequestMapping("/list/page/{pageIndex}")
+    public String paymentList(@PathVariable int pageIndex, Model model) {
+        Page<PaymentResponse> paymentResponsePage = paymentService.getAllPayments(pageIndex, PAGE_SIZE);
+        model.addAttribute("payments", paymentResponsePage.getContent());
+        model.addAttribute("currentPage", pageIndex);
+        model.addAttribute("totalPages", paymentResponsePage.getTotalPages());
+        return "dashboard/payment-list";
     }
 }

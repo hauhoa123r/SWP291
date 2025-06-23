@@ -54,6 +54,10 @@ public class OrderEntity {
     @OneToMany
     private Set<PaymentEntity> paymentEntities = new LinkedHashSet<>();
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserEntity userEntity;
+
 /*
  TODO [Reverse Engineering] create field to map the 'order_type' column
  Available actions: Define target Java type | Uncomment as is | Remove column mapping

@@ -1,17 +1,13 @@
 package org.project.controller;
 
-import org.project.model.response.DepartmentResponse;
 import org.project.model.response.StaffResponse;
 import org.project.service.DepartmentService;
 import org.project.service.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -36,10 +32,15 @@ public class DoctorController {
         this.departmentService = departmentService;
     }
 
-    @ModelAttribute("departments")
-    public List<DepartmentResponse> getDepartmentsByDoctorRole() {
-        return departmentService.getAllDepartmentsHaveDoctor();
+    @GetMapping
+    public String test() {
+        return "/paymentList";
     }
+
+//    @ModelAttribute("departments")
+//    public List<DepartmentResponse> getDepartmentsByDoctorRole() {
+//        return departmentService.getAllDepartmentsHaveDoctor();
+//    }
 
     @GetMapping("/page/{pageIndex}")
     public String getAllStaffByPage(@PathVariable int pageIndex, Model model) {

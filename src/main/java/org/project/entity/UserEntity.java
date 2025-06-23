@@ -70,6 +70,18 @@ public class UserEntity {
             inverseJoinColumns = @JoinColumn(name = "product_id"))
     private Set<ProductEntity> products = new LinkedHashSet<>();
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "patient_id", referencedColumnName = "patient_id")
+    private PatientEntity patientEntity;
+
+
+    public PatientEntity getPatientEntity() {
+        return patientEntity;
+    }
+
+    public void setPatientEntity(PatientEntity patientEntity) {
+        this.patientEntity = patientEntity;
+    }
 
 /*
  TODO [Reverse Engineering] create field to map the 'status' column

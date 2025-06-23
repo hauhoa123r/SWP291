@@ -4,9 +4,16 @@ import org.project.entity.*;
 import org.project.enums.PaymentMethod;
 import org.project.enums.PaymentStatus;
 import org.project.enums.WalletTransactionType;
-import org.project.repository.*;
+import org.project.model.request.PaymentRequest;
+import org.project.model.response.PaymentResponse;
+import org.project.repository.PaymentRepository;
+import org.project.repository.PrescriptionRepository;
+import org.project.repository.WalletRepository;
+import org.project.repository.WalletTransactionRepository;
 import org.project.service.PaymentService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -15,23 +22,26 @@ import java.sql.Timestamp;
 @Service
 public class PaymentServiceImpl implements PaymentService {
 
-    @Autowired
-    private PaymentRepository paymentRepository;
+    private final PaymentRepository paymentRepository;
 
-    @Autowired
-    private PrescriptionRepository prescriptionRepository;
+    private final PrescriptionRepository prescriptionRepository;
 
-    @Autowired
-    private WalletRepository walletRepository;
+    private final WalletRepository walletRepository;
 
-    @Autowired
-    private WalletTransactionRepository walletTransactionRepository;
+    private final WalletTransactionRepository walletTransactionRepository;
+
+    public PaymentServiceImpl(PrescriptionRepository prescriptionRepository, PaymentRepository paymentRepository, WalletRepository walletRepository, WalletTransactionRepository walletTransactionRepository) {
+        this.prescriptionRepository = prescriptionRepository;
+        this.paymentRepository = paymentRepository;
+        this.walletRepository = walletRepository;
+        this.walletTransactionRepository = walletTransactionRepository;
+    }
 
     public BigDecimal calculateTotalAmount(Long prescriptionId) {
         PrescriptionEntity prescription = prescriptionRepository.findById(prescriptionId)
                 .orElseThrow(() -> new RuntimeException("Prescription not found"));
         BigDecimal totalAmount = BigDecimal.ZERO;
-        for (PrescriptionItemEntity item : prescription.getPrescriptionItems()) {
+        for (PrescriptionItemEntity item : prescription.getPrescriptionItemEntities()) {
             BigDecimal itemTotal = item.getMedicineEntity().getProductEntity().getPrice().multiply(new BigDecimal(item.getQuantity()));
             totalAmount = totalAmount.add(itemTotal);
         }
@@ -46,7 +56,7 @@ public class PaymentServiceImpl implements PaymentService {
             throw new RuntimeException("Insufficient balance in wallet");
         }
         return wallet;
-        }
+    }
 
 
     // Tạo giao dịch thanh toán
@@ -93,4 +103,49 @@ public class PaymentServiceImpl implements PaymentService {
         finalizePayment(payment);
         return payment;
     }
+
+    @Override
+    public PaymentResponse executePaymentTransaction(PaymentRequest paymentRequest) {
+        PaymentEntity payment = new PaymentEntity();
+        payment.setAmount(paymentRequest.getAmount());
+        payment.setPaymentMethod(PaymentMethod.valueOf(paymentRequest.getPaymentMethod()));
+        payment.setPaymentStatus(PaymentStatus.SUCCESSED);
+        paymentRepository.save(payment);
+
+        return convertToResponse(payment);
+    }
+
+    @Override
+    public Page<PaymentResponse> getAllPayments(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<PaymentEntity> paymentPage = paymentRepository.findAll(pageable);
+        return paymentPage.map(this::convertToResponse);
+    }
+
+
+    @Override
+    public PaymentResponse updatePaymentMethod(Long paymentId, String newMethod) {
+        PaymentEntity payment = paymentRepository.findById(paymentId)
+                .orElseThrow(() -> new RuntimeException("Payment not found"));
+        payment.setPaymentMethod(PaymentMethod.valueOf(newMethod));
+        paymentRepository.save(payment);
+        return convertToResponse(payment);
+    }
+
+    private PaymentResponse convertToResponse(PaymentEntity payment) {
+        PaymentResponse response = new PaymentResponse();
+        response.setPaymentId(payment.getId());
+        response.setAmount(payment.getAmount());
+        response.setPaymentMethod(payment.getPaymentMethod().name());
+        response.setPaymentStatus(payment.getPaymentStatus().name());
+        response.setPaymentTime(payment.getPaymentTime() != null ? payment.getPaymentTime().toString() : null);
+
+
+        if (payment.getOrderEntity().getAppointmentEntity().getPatientEntity() != null) {
+            response.setFullName(payment.getOrderEntity().getAppointmentEntity().getPatientEntity().getFullName());
+        }
+
+        return response;
+    }
+
 }
