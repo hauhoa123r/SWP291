@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/payments")
@@ -82,12 +83,21 @@ public class PaymentAPI {
 //        return ResponseEntity.ok(payments);
 //    }
 
-
-    @PutMapping("/update-method/{paymentId}")
-    public ResponseEntity<PaymentResponse> updatePaymentMethod(@PathVariable Long paymentId, @RequestParam String method) {
-        PaymentResponse updatedPayment = paymentService.updatePaymentMethod(paymentId, method);
-        return ResponseEntity.ok(updatedPayment);
+    @GetMapping("/methods")
+    public ResponseEntity<List<PaymentMethod>> getAllPaymentMethods() {
+        List<PaymentMethod> methods = paymentService.getAllPaymentMethods();
+        return ResponseEntity.ok(methods);
     }
+
+
+//    @PutMapping("/update-method/{paymentId}")
+//    public ResponseEntity<PaymentResponse> updatePaymentMethod(
+//            @PathVariable Long paymentId,
+//            @RequestParam PaymentMethod newMethod) {
+//
+//        PaymentResponse updatedPayment = paymentService.updatePaymentMethod(paymentId, newMethod);
+//        return ResponseEntity.ok(updatedPayment);
+//    }
 
 
 }

@@ -10,7 +10,7 @@ public enum FamilyRelationship {
     DAUGHTER("daughter"),
     GRAND_FATHER("grandfather"),
     GRAND_MOTHER("grandmother"),
-    COUSIN("cousin"),
+    CAUSIN("causin"),
     AUNT("aunt"),
     UNCLE("uncle"),
     OTHER("other");

@@ -8,6 +8,7 @@ import org.project.model.response.PaymentResponse;
 import org.springframework.data.domain.Page;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public interface PaymentService {
 
@@ -31,6 +32,7 @@ public interface PaymentService {
 
     Page<PaymentResponse> getAllPayments(int page, int size);
 
+    List<PaymentMethod> getAllPaymentMethods();
 
-    PaymentResponse updatePaymentMethod(Long paymentId, String newMethod);
+//    PaymentResponse updatePaymentMethod(Long paymentId, String newMethod);
 }

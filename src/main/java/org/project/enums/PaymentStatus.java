@@ -1,8 +1,14 @@
 package org.project.enums;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public enum PaymentStatus {
     PENDING("Pending"),
-    SUCCESSED("Success");
+    SUCCESSED("Success"),
+    FAILED("Failed");
 
 
     private final String status;

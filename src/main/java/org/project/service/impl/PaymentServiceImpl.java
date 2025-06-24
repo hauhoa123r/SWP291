@@ -18,6 +18,8 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.Arrays;
+import java.util.List;
 
 @Service
 public class PaymentServiceImpl implements PaymentService {
@@ -122,15 +124,20 @@ public class PaymentServiceImpl implements PaymentService {
         return paymentPage.map(this::convertToResponse);
     }
 
-
     @Override
-    public PaymentResponse updatePaymentMethod(Long paymentId, String newMethod) {
-        PaymentEntity payment = paymentRepository.findById(paymentId)
-                .orElseThrow(() -> new RuntimeException("Payment not found"));
-        payment.setPaymentMethod(PaymentMethod.valueOf(newMethod));
-        paymentRepository.save(payment);
-        return convertToResponse(payment);
+    public List<PaymentMethod> getAllPaymentMethods() {
+        return Arrays.asList(PaymentMethod.values());
     }
+
+
+//    @Override
+//    public PaymentResponse updatePaymentMethod(Long paymentId, PaymentMethod newMethod) {
+//        PaymentEntity payment = paymentRepository.findById(paymentId)
+//                .orElseThrow(() -> new RuntimeException("Payment not found"));
+//        payment.setPaymentMethod(newMethod);
+//        paymentRepository.save(payment);
+//        return convertToResponse(payment);
+//    }
 
     private PaymentResponse convertToResponse(PaymentEntity payment) {
         PaymentResponse response = new PaymentResponse();

@@ -21,7 +21,7 @@ public class PaymentController {
         this.paymentService = paymentService;
     }
 
-    @RequestMapping
+    @RequestMapping("/patient")
     public String payment() {
         return "dashboard/patient-payments";
     }
@@ -34,4 +34,5 @@ public class PaymentController {
         model.addAttribute("totalPages", paymentResponsePage.getTotalPages());
         return "dashboard/payment-list";
     }
+
 }
