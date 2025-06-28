@@ -1,10 +1,12 @@
 package org.project.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.project.converter.NotificationConverter;
 import org.project.entity.AppointmentEntity;
 import org.project.entity.NotificationEntity;
 import org.project.entity.PatientEntity;
 import org.project.entity.UserEntity;
+import org.project.model.response.NotificationResponse;
 import org.project.repository.AppointmentRepository;
 import org.project.repository.NotificationRepository;
 import org.project.repository.PatientRepository;
@@ -25,18 +27,19 @@ import java.util.List;
 @RequiredArgsConstructor
 public class NotificationServiceImpl implements NotificationService {
 
+    private static final Logger log = LoggerFactory.getLogger(NotificationServiceImpl.class);
     private final NotificationRepository notificationRepository;
     private final UserRepository userRepository;
     private final PatientRepository patientRepository;
     private final EmailService emailService;
     private final AppointmentRepository appointmentRepository;
-
-    private static final Logger log = LoggerFactory.getLogger(NotificationServiceImpl.class);
+    private final NotificationConverter notificationConverter;
 
     // Trả danh sách thông báo của user (dùng cho giao diện web)
     @Override
-    public List<NotificationEntity> getAllByUserId(Long userId) {
-        return notificationRepository.findByUserEntity_IdOrderByCreatedAtDesc(userId);
+    public List<NotificationResponse> getAllByUserId(Long userId) {
+        List<NotificationEntity> notificationEntities = notificationRepository.findTop5ByUserEntity_IdOrderByCreatedAt(userId);
+        return notificationEntities.stream().map(notificationConverter::toResponse).toList();
     }
 
 
@@ -105,7 +108,7 @@ public class NotificationServiceImpl implements NotificationService {
         AppointmentEntity appt = appointmentRepository.findById(appointmentId)
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy lịch hẹn"));
 
-        String content = buildAppointmentContent(appt,"Lịch hẹn đã bị hủy",
+        String content = buildAppointmentContent(appt, "Lịch hẹn đã bị hủy",
                 "🚫 Lịch hẹn của bệnh nhân %s với bác sĩ %s vào lúc %s đã bị hủy.");
 
         sendNotification(appt.getPatientEntity().getUserEntity().getId(), "🚫 Lịch hẹn bị hủy", content);
@@ -133,9 +136,6 @@ public class NotificationServiceImpl implements NotificationService {
 
         return count;
     }
-
-
-
 
 
     private String buildAppointmentContent(AppointmentEntity appt, String title, String pattern) {
@@ -188,8 +188,42 @@ public class NotificationServiceImpl implements NotificationService {
         return count;
     }
 
-
-
+//    @Override
+//    public boolean sendLabResultNotification(Long appointmentId) {
+//        AppointmentEntity appt = appointmentRepository.findById(appointmentId)
+//                .orElseThrow(() -> new RuntimeException("Không tìm thấy lịch hẹn"));
+//
+//        PatientEntity patient = appt.getPatientEntity();
+//        UserEntity user = patient.getUserEntity();
+//        String doctorName = appt.getDoctorEntity().getStaffEntity().getFullName();
+//        String patientName = patient.getFullName();
+//
+//
+//        List<TestRequestEntity> testRequests = testRequestRepository.findByAppointmentId(appointmentId);
+//
+//        boolean hasResult = false;
+//        for (TestRequestEntity tr : testRequests) {
+//            List<TestRequestItemEntity> items = testRequestItemRepository.findByTestRequestId(tr.getId());
+//            for (TestRequestItemEntity item : items) {
+//                if (item.getResult() != null && !item.getResult().isBlank()) {
+//                    hasResult = true;
+//                    break;
+//                }
+//            }
+//            if (hasResult) break;
+//        }
+//
+//        if (!hasResult) {
+//            return false;
+//        }
+//
+//        String title = "🧪 Đã có kết quả xét nghiệm";
+//        String content = "Bệnh nhân " + patientName + " đã có kết quả xét nghiệm từ bác sĩ " + doctorName + ".";
+//
+//        sendNotification(user.getId(), title, content); // Gửi web + email
+//
+//        return true;
+//    }
 
 
 }
