@@ -2,8 +2,10 @@ package org.project.service;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.project.config.VNPayConfig;
+import org.project.entity.OrderItemEntity;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
@@ -20,6 +22,7 @@ public class VNPayService {
         String vnp_TmnCode = VNPayConfig.vnp_TmnCode;
         String orderType = "order-type";
 
+        // Sử dụng Map với kiểu rõ ràng
         Map<String, String> vnp_Params = new HashMap<>();
         vnp_Params.put("vnp_Version", vnp_Version);
         vnp_Params.put("vnp_Command", vnp_Command);
@@ -47,20 +50,21 @@ public class VNPayService {
         String vnp_ExpireDate = formatter.format(cld.getTime());
         vnp_Params.put("vnp_ExpireDate", vnp_ExpireDate);
 
-        List fieldNames = new ArrayList(vnp_Params.keySet());
+        // Sử dụng Iterator và List với kiểu xác định
+        List<String> fieldNames = new ArrayList<>(vnp_Params.keySet());
         Collections.sort(fieldNames);
         StringBuilder hashData = new StringBuilder();
         StringBuilder query = new StringBuilder();
-        Iterator itr = fieldNames.iterator();
+        Iterator<String> itr = fieldNames.iterator();
         while (itr.hasNext()) {
-            String fieldName = (String) itr.next();
+            String fieldName = itr.next();
             String fieldValue = vnp_Params.get(fieldName);
             if ((fieldValue != null) && (fieldValue.length() > 0)) {
-                //Build hash data
+                // Build hash data
                 hashData.append(fieldName);
                 hashData.append('=');
                 hashData.append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII));
-                //Build query
+                // Build query
                 query.append(URLEncoder.encode(fieldName, StandardCharsets.US_ASCII));
                 query.append('=');
                 query.append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII));
@@ -78,12 +82,12 @@ public class VNPayService {
     }
 
     public int orderReturn(HttpServletRequest request) {
-        Map fields = new HashMap();
-        for (Enumeration params = request.getParameterNames(); params.hasMoreElements(); ) {
-            String fieldName = null;
-            String fieldValue = null;
-            fieldName = URLEncoder.encode((String) params.nextElement(), StandardCharsets.US_ASCII);
-            fieldValue = URLEncoder.encode(request.getParameter(fieldName), StandardCharsets.US_ASCII);
+        Map<String, String> fields = new HashMap<>(); // Đảm bảo kiểu rõ ràng
+
+        // Truy xuất các tham số từ request
+        for (Enumeration<String> params = request.getParameterNames(); params.hasMoreElements(); ) {
+            String fieldName = params.nextElement();
+            String fieldValue = request.getParameter(fieldName);
             if ((fieldValue != null) && (fieldValue.length() > 0)) {
                 fields.put(fieldName, fieldValue);
             }
@@ -104,4 +108,17 @@ public class VNPayService {
         }
     }
 
+    public BigDecimal calculateOrderTotal(List<OrderItemEntity> orderItems) {
+        BigDecimal total = BigDecimal.ZERO;
+
+        for (OrderItemEntity item : orderItems) {
+
+            BigDecimal productPrice = item.getProduct().getPrice();
+
+
+            total = total.add(productPrice.multiply(BigDecimal.valueOf(item.getQuantity())));
+        }
+
+        return total;
+    }
 }

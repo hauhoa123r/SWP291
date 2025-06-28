@@ -31,4 +31,7 @@ public class OrderItemEntity {
     @Column(name = "quantity", nullable = false)
     private Integer quantity;
 
+    public ProductEntity getProduct() {
+        return productEntity;
+    }
 }
