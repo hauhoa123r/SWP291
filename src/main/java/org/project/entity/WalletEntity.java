@@ -1,38 +1,49 @@
 package org.project.entity;
 
+
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
-@Entity(name = "WalletEntityEntity")
-@Table(name = "wallets", schema = "swp391")
+@Entity
+@Table(name = "wallet")
 public class WalletEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "wallet_id", nullable = false)
+    @Column(name = "wallet_id")  // Đặt tên cột cho khóa chính
     private Long id;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user_id", nullable = false)
-    private UserEntity userEntity;
+    @ManyToOne(fetch = FetchType.LAZY)  // Quan hệ nhiều - một với UserEntity
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id", foreignKey = @ForeignKey(name = "fk_wallet_user"))
+    // Liên kết với bảng users
+    private UserEntity user;
 
-    @NotNull
-    @Column(name = "balance", nullable = false, precision = 10, scale = 2)
+    @Column(name = "balance", nullable = false, precision = 10, scale = 2)  // Đặt các thuộc tính cột balance
     private BigDecimal balance;
 
-    @OneToMany
-    private Set<WalletTransactionEntity> walletTransactionEntities = new LinkedHashSet<>();
+    // Getter và Setter cho các thuộc tính
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public void setUser(UserEntity user) {
+        this.user = user;
+    }
+
+    public BigDecimal getBalance() {
+        return balance;
+    }
+
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
+    }
 }

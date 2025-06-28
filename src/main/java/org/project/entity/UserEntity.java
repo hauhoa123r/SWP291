@@ -61,7 +61,7 @@ public class UserEntity {
     @OneToMany(mappedBy = "userEntity")
     private Set<UserCouponEntity> userCouponEntities = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "userEntity")
+    @OneToMany(mappedBy = "user") // Chỉnh lại mappedBy theo tên trường trong WalletEntity
     private Set<WalletEntity> walletEntities = new LinkedHashSet<>();
 
     @ManyToMany
@@ -74,33 +74,4 @@ public class UserEntity {
     @JoinColumn(name = "patient_id", referencedColumnName = "patient_id")
     private PatientEntity patientEntity;
 
-
-    public PatientEntity getPatientEntity() {
-        return patientEntity;
-    }
-
-    public void setPatientEntity(PatientEntity patientEntity) {
-        this.patientEntity = patientEntity;
-    }
-
-/*
- TODO [Reverse Engineering] create field to map the 'status' column
- Available actions: Define target Java type | Uncomment as is | Remove column mapping
-    @Column(name = "status", columnDefinition = "enum")
-    private Object status;
-*/
-/*
- TODO [Reverse Engineering] create field to map the 'user_role' column
- Available actions: Define target Java type | Uncomment as is | Remove column mapping
-    @org.hibernate.annotations.ColumnDefault("'PATIENT'")
-    @Column(name = "user_role", columnDefinition = "enum not null")
-    private java.lang.Object userRole;
-*/
-/*
- TODO [Reverse Engineering] create field to map the 'user_status' column
- Available actions: Define target Java type | Uncomment as is | Remove column mapping
-    @org.hibernate.annotations.ColumnDefault("'ACTIVE'")
-    @Column(name = "user_status", columnDefinition = "enum not null")
-    private java.lang.Object userStatus;
-*/
 }

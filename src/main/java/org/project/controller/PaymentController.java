@@ -35,4 +35,15 @@ public class PaymentController {
         return "dashboard/payment-list";
     }
 
+    @RequestMapping("/checkout")
+    public String checkout() {
+        return "frontend/checkout.html";
+    }
+
+    @RequestMapping("/order-received")
+    public String order() {
+        return "frontend/order-received";
+    }
+
+
 }
