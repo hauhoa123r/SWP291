@@ -1,37 +1,37 @@
 package org.project.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@AllArgsConstructor
-@NoArgsConstructor
+@Entity
+@Table(name = "order_items")
 @Getter
 @Setter
-@Entity
-@Table(name = "order_items", schema = "swp391")
 public class OrderItemEntity {
-    @EmbeddedId
-    private OrderItemEntityId id;
 
-    @MapsId("orderId")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "order_id", nullable = false)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id", referencedColumnName = "order_id", nullable = false)
     private OrderEntity orderEntity;
 
-    @MapsId("productId")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "product_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false)
     private ProductEntity productEntity;
 
-    @NotNull
     @Column(name = "quantity", nullable = false)
     private Integer quantity;
 
-    public ProductEntity getProduct() {
-        return productEntity;
+    // Getter cho orderId và productId từ các thực thể OrderEntity và ProductEntity
+    public Long getOrderId() {
+        return orderEntity != null ? orderEntity.getOrderId() : null;
+    }
+
+    public Long getProductId() {
+        return productEntity != null ? productEntity.getId() : null;
     }
 }

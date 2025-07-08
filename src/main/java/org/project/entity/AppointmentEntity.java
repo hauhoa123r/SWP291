@@ -58,8 +58,7 @@ public class AppointmentEntity {
 
     @OneToMany
     private Set<OrderEntity> orderEntities = new LinkedHashSet<>();
-    @OneToMany
-    private Set<TestRequestEntity> testRequestEntities = new LinkedHashSet<>();
+
 
 /*
  TODO [Reverse Engineering] create field to map the 'appointment_status' column

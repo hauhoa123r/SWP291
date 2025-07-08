@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.Remove;
 import org.hibernate.annotations.ColumnDefault;
 import org.project.enums.Label;
 import org.project.enums.ProductStatus;
@@ -24,6 +23,7 @@ import java.util.Set;
 @Entity
 @Table(name = "products", schema = "swp391")
 public class ProductEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_id", nullable = false)
@@ -55,7 +55,7 @@ public class ProductEntity {
     @Column(name = "image_url")
     private String imageUrl;
 
-    @OneToMany
+    @OneToMany(mappedBy = "productEntity")
     private Set<CartItemEntity> cartItemEntities = new LinkedHashSet<>();
 
     @OneToOne(mappedBy = "productEntity")
@@ -88,8 +88,6 @@ public class ProductEntity {
     @OneToMany(mappedBy = "productEntity")
     private Set<ProductTagEntity> productTagEntities = new LinkedHashSet<>();
 
-    @OneToOne(mappedBy = "productEntity")
-    private TestEntity testEntity;
 
     @ManyToMany
     private Set<UserEntity> userEntities = new LinkedHashSet<>();

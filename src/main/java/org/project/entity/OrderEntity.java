@@ -19,10 +19,11 @@ import java.util.Set;
 @Entity
 @Table(name = "orders", schema = "swp391")
 public class OrderEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id", nullable = false)
-    private Long id;
+    private Long orderId;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -45,30 +46,16 @@ public class OrderEntity {
     @NotNull
     @Column(name = "real_amount", nullable = false, precision = 10, scale = 2)
     private BigDecimal realAmount;
-    @OneToMany
+
+    @OneToMany(mappedBy = "orderEntity")
     private Set<OrderItemEntity> orderItemEntities = new LinkedHashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "coupon_id")
     private CouponEntity couponEntity;
-    @OneToMany
+
+    @OneToMany(mappedBy = "orderEntity")
     private Set<PaymentEntity> paymentEntities = new LinkedHashSet<>();
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "user_id", nullable = false)
-//    private UserEntity userEntity;
 
-/*
- TODO [Reverse Engineering] create field to map the 'order_type' column
- Available actions: Define target Java type | Uncomment as is | Remove column mapping
-    @ColumnDefault("'DIRECT'")
-    @Column(name = "order_type", columnDefinition = "enum not null")
-    private Object orderType;
-*/
-/*
- TODO [Reverse Engineering] create field to map the 'order_status' column
- Available actions: Define target Java type | Uncomment as is | Remove column mapping
-    @Column(name = "order_status", columnDefinition = "enum not null")
-    private Object orderStatus;
-*/
 }

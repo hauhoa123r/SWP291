@@ -13,8 +13,7 @@ public class OrderService {
     @Autowired
     private OrderItemRepository orderItemRepository;
 
-
     public List<OrderItemEntity> getOrderItems(Long orderId) {
-        return orderItemRepository.findByOrderId(orderId);
+        return orderItemRepository.findByOrderEntityOrderId(orderId);  // Truy vấn các sản phẩm trong đơn hàng theo orderId
     }
 }

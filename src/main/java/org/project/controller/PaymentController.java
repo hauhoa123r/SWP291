@@ -40,9 +40,14 @@ public class PaymentController {
         return "frontend/checkout.html";
     }
 
-    @RequestMapping("/order-received")
+    @RequestMapping("/order-received.html")
     public String order() {
         return "frontend/order-received";
+    }
+
+    @RequestMapping("/index")
+    public String index() {
+        return "frontend/index.html";
     }
 
 
