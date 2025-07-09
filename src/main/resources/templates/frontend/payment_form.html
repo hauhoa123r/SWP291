@@ -1,0 +1,49 @@
+<!-- src/main/resources/templates/frontend/payment_form.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Nạp tiền vào ví VNPAY Sandbox</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+<div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+    <h1 class="text-2xl font-bold mb-6 text-center text-gray-800">Nạp tiền vào ví qua VNPAY Sandbox</h1>
+    <!-- Cập nhật action để trỏ đến VNPAYAPI -->
+    <form action="/api/payment/deposit/vnpay/initiate" class="space-y-4" method="POST">
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1" for="userId">ID Người dùng:</label>
+            <input class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                   id="userId" name="userId" placeholder="Ví dụ: 1"
+                   required
+                   type="number">
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1" for="amount">Số tiền (VND):</label>
+            <input class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                   id="amount" min="1000" name="amount" placeholder="Ví dụ: 100000" required
+                   step="1000"
+                   type="number">
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1" for="orderInfo">Nội dung giao dịch:</label>
+            <input class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                   id="orderInfo" name="orderInfo" placeholder="Ví dụ: Nap tien vao vi"
+                   required
+                   type="text">
+        </div>
+        <button class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                type="submit">
+            Nạp tiền qua VNPAY
+        </button>
+    </form>
+</div>
+</body>
+</html>
