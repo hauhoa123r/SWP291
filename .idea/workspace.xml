@@ -4,132 +4,32 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f2bb8215-e97a-48c4-b832-a8e014f809ef" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" />
+    <list default="true" id="f2bb8215-e97a-48c4-b832-a8e014f809ef" name="Changes" comment="edit frontend">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/project/api/VNPAYAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/project/api/VNPAYAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/project/entity/PaymentEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/project/entity/PaymentEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/project/entity/WalletTransactionEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/project/entity/WalletTransactionEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/project/service/VNPayService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/project/service/VNPayService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/frontend/error.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/frontend/error.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/frontend/payment_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/frontend/payment_form.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/frontend/success.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/frontend/success.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/SWP391Application.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/api/PharmacyAPI.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/builder/builder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/config/ModelMapperConfig.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/config/PayOSConfig.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/controller/DoctorController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/controller/PaymentController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/controller/ShopController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/controller/UserController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/controlleradvice/ControllerAdvisor.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/converter/ConverterPharmacyProduct.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/AppointmentEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/CartItemEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/CartItemEntityId.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/CategoryEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/CouponEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/DepartmentEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/DoctorEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/HospitalEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/IngredientInteractionEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/IngredientInteractionEntityId.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/IngredientRequestEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/IngredientRequestItemEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/IngredientRequestItemEntityId.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/InventoryManagerEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/MedicalProductEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/MedicalRecordEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/MedicineEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/MedicineIngredientEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/NotificationEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/OrderEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/OrderItemEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/OrderItemEntityId.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/PatientEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/PaymentEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/PharmacistEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/PrescriptionEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/PrescriptionItemEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/PrescriptionItemEntityId.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/PricingPlanEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/PricingPlanFeatureEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/PricingPlanSubscriptionEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/PricingPlanSubscriptionEntityId.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/ProductAdditionalInfoEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/ProductCategoryEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/ProductCategoryEntityId.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/ProductEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/ProductReviewEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/ProductTagEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/ProductTagEntityId.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/ReviewEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/SchedulingCoordinatorEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/ServiceEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/ServiceFeatureEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/ShippingAddressEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/StaffEducationEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/StaffEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/StaffExperienceEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/StaffQualificationEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/StaffReviewEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/StaffScheduleEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/StaffShiftEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/StaffSkillEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/StaffSpecialityEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/SupplierEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/SupplierTransactionItemEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/SupplierTransactionItemEntityId.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/SupplierTransactionsEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/TechnicianEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/TestEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/TestRequestEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/TestRequestItemEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/TestRequestItemEntityId.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/UserCouponEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/UserCouponEntityId.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/UserEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/WalletEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/WalletTransactionEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/WishlistProductEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/entity/WishlistProductEntityId.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/enums/AppointmentStatus.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/enums/Gender.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/enums/Language.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/enums/OrderStatus.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/enums/PaymentMethod.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/enums/PaymentStatus.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/enums/PharmacyStaff.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/enums/ProductType.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/enums/RoleAccount.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/enums/StaffRole.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/enums/StaffStatus.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/enums/StaffType.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/enums/WalletTransactionType.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/exception/ErrorResponse.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/exception/ResourceNotFoundException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/model/dto/ObjectDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/model/request/ObjectRequest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/model/response/PharmacyListResponse.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/repository/PatientRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/repository/PaymentRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/repository/PharmacyRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/repository/PrescriptionRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/repository/UserRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/repository/WalletRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/repository/WalletTransactionRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/security/object.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/service/PaymentService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/service/PharmacyService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/service/UserService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/service/impl/PaymentServiceImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/service/impl/PharmacyServiceImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/service/impl/UserServiceImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/utils/MapUtils.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/utils/NumberUtils.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/project/utils/StringUtils.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/fragments/footer.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/fragments/header.html" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager">
+    <option name="groupingKeys">
+      <option value="directory" />
+      <option value="module" />
+      <option value="repository" />
+    </option>
+  </component>
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -139,63 +39,112 @@
       </list>
     </option>
   </component>
+  <component name="FormatOnSaveOptions">
+    <option name="myRunOnSave" value="true" />
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="nguyendong" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;zezinguyen&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;http://github.com/hauhoa123r/SWP391.git&quot;,
+    &quot;accountId&quot;: &quot;4ad71950-8e59-4ed6-9b09-67b3e872ef41&quot;
+  }
+}</component>
   <component name="KubernetesApiPersistence">{}</component>
   <component name="KubernetesApiProvider">{
   &quot;isMigrated&quot;: true
 }</component>
+  <component name="OptimizeOnSaveOptions">
+    <option name="myRunOnSave" value="true" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 5
 }</component>
   <component name="ProjectId" id="2yGxKkZCNHDPBd05CuLLPL0S4rY" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "JavaScript Debug.paymentList.html.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "Spring Boot.SWP391Application.executor": "Run",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "D:/Desktop/SWP391/SWP391/src/main/resources/templates/fragments",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;JavaScript Debug.checkout.html.executor&quot;: &quot;Run&quot;,
+    &quot;JavaScript Debug.createOrder.html.executor&quot;: &quot;Run&quot;,
+    &quot;JavaScript Debug.index.html.executor&quot;: &quot;Run&quot;,
+    &quot;JavaScript Debug.orderSuccess.html.executor&quot;: &quot;Run&quot;,
+    &quot;JavaScript Debug.paymentList.html.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
+    &quot;Spring Boot.SWP391Application.executor&quot;: &quot;Run&quot;,
+    &quot;code.cleanup.on.save&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;nguyendong&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Desktop/SWP391/SWP391_lod2/src/main/resources/templates&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;rearrange.code.on.save&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
+    ]
   }
-}]]></component>
+}</component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Desktop\SWP391\SWP391_lod2\src\main\resources\templates" />
+      <recent name="D:\Desktop\SWP391\SWP391_lod2\src\main\resources\templates\dashboard" />
+      <recent name="D:\Desktop\SWP391\SWP391_lod2\src\main\resources\static\" />
+      <recent name="D:\Desktop\SWP391\SWP391_lod2\src\main\resources\static" />
       <recent name="D:\Desktop\SWP391\SWP391\src\main\resources\templates\fragments" />
-      <recent name="D:\Desktop\SWP391\SWP391\src\main\resources\templates" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Desktop\SWP391\SWP391_lod2\src\main\resources\templates\frontend" />
+      <recent name="D:\Desktop\SWP391\SWP391_lod2\src\main\resources\static" />
+      <recent name="D:\Desktop\SWP391\SWP391_lod2\src\main\resources" />
       <recent name="D:\Desktop\SWP391\SWP391\src\main\resources\templates" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="org.project.api" />
     </key>
   </component>
   <component name="RunManager" selected="Spring Boot.SWP391Application">
+    <configuration name="index.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/SWP391_lod2/SWP391/templates/frontend/index.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
     <configuration name="paymentList.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/SWP391/templates/paymentList.html" useBuiltInWebServerPort="true">
       <method v="2" />
     </configuration>
@@ -209,7 +158,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JavaScript Debug.paymentList.html" />
+        <item itemvalue="JavaScript Debug.index.html" />
         <item itemvalue="JavaScript Debug.paymentList.html" />
         <item itemvalue="JavaScript Debug.paymentList.html" />
         <item itemvalue="JavaScript Debug.paymentList.html" />
@@ -248,11 +197,122 @@
       <workItem from="1750120735335" duration="3887000" />
       <workItem from="1750172953595" duration="651000" />
       <workItem from="1750173632962" duration="650000" />
+      <workItem from="1750221104053" duration="862000" />
+      <workItem from="1750251633699" duration="12000" />
+      <workItem from="1750509639547" duration="3164000" />
+      <workItem from="1750570006381" duration="28178000" />
+      <workItem from="1750686370355" duration="430000" />
+      <workItem from="1750686839433" duration="510000" />
+      <workItem from="1750687825752" duration="4265000" />
+      <workItem from="1750725782356" duration="9835000" />
+      <workItem from="1750750876359" duration="10895000" />
+      <workItem from="1750993045351" duration="16046000" />
+      <workItem from="1751072891966" duration="198000" />
+      <workItem from="1751101692863" duration="8431000" />
+      <workItem from="1751125688889" duration="16893000" />
+      <workItem from="1751245299027" duration="943000" />
+      <workItem from="1751782652492" duration="2837000" />
+      <workItem from="1751807088605" duration="597000" />
+      <workItem from="1751864189012" duration="2438000" />
+      <workItem from="1751936089545" duration="295000" />
+      <workItem from="1751936404389" duration="13976000" />
+      <workItem from="1752027812778" duration="15664000" />
     </task>
+    <task id="LOCAL-00001" summary="update quan li thanh">
+      <option name="closed" value="true" />
+      <created>1750654321983</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1750654321983</updated>
+    </task>
+    <task id="LOCAL-00002" summary="list payment và frontend&#10;chỉnh sửa lại api thanh toán , tinh tong, thong bao so du">
+      <option name="closed" value="true" />
+      <created>1750687269642</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1750687269642</updated>
+    </task>
+    <task id="LOCAL-00003" summary="method">
+      <option name="closed" value="true" />
+      <created>1750732645104</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1750732645104</updated>
+    </task>
+    <task id="LOCAL-00004" summary="VNPAY">
+      <option name="closed" value="true" />
+      <created>1751114161177</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1751114161177</updated>
+    </task>
+    <task id="LOCAL-00005" summary="VNPAY">
+      <option name="closed" value="true" />
+      <created>1751114185985</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1751114185985</updated>
+    </task>
+    <task id="LOCAL-00006" summary="VNPAY">
+      <option name="closed" value="true" />
+      <created>1751124367484</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1751124367484</updated>
+    </task>
+    <task id="LOCAL-00007" summary="sua lai thanh toan">
+      <option name="closed" value="true" />
+      <created>1751937844590</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1751937844590</updated>
+    </task>
+    <task id="LOCAL-00008" summary="edit">
+      <option name="closed" value="true" />
+      <created>1752044451835</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1752044451835</updated>
+    </task>
+    <task id="LOCAL-00009" summary="edit frontend">
+      <option name="closed" value="true" />
+      <created>1752044470301</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1752044470301</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="dependencySupport" implementationName="java:org.springframework:spring-core" />
+    <option featureType="dependencySupport" implementationName="java:jakarta.validation:jakarta.validation-api" />
+    <option featureType="dependencySupport" implementationName="java:io.projectreactor:reactor-core" />
+    <option featureType="dependencySupport" implementationName="executable:kubectl" />
+    <option featureType="dependencySupport" implementationName="java:org.springframework.data:spring-data-commons" />
+    <option featureType="dependencySupport" implementationName="java:org.hibernate.validator:hibernate-validator" />
+    <option featureType="dependencySupport" implementationName="java:javax.validation:validation-api" />
+    <option featureType="dependencySupport" implementationName="java:org.springframework:spring-webmvc" />
+    <option featureType="dependencySupport" implementationName="java:org.projectlombok:lombok" />
+    <option featureType="dependencySupport" implementationName="java:org.springframework:spring-websocket" />
+    <option featureType="dependencySupport" implementationName="executable:docker" />
+    <option featureType="dependencySupport" implementationName="java:jakarta.persistence:jakarta.persistence-api" />
+    <option featureType="dependencySupport" implementationName="java:org.thymeleaf:thymeleaf" />
+    <option featureType="dependencySupport" implementationName="maven-packaging:war" />
+    <option featureType="dependencySupport" implementationName="java:org.springframework:spring-messaging" />
+    <option featureType="dependencySupport" implementationName="java:org.springframework.boot:spring-boot" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -264,5 +324,21 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="xoa file build project" />
+    <MESSAGE value="update quan li thanh toan" />
+    <MESSAGE value="list payment và frontend" />
+    <MESSAGE value="list payment và frontend&#10;chỉnh sửa lại api thanh toán , tinh tong, thong bao so du" />
+    <MESSAGE value="method" />
+    <MESSAGE value="VNPAY" />
+    <MESSAGE value="sua lai thanh toan" />
+    <MESSAGE value="edit" />
+    <MESSAGE value="edit frontend" />
+    <option name="LAST_COMMIT_MESSAGE" value="edit frontend" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
