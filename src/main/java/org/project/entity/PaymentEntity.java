@@ -13,8 +13,6 @@ import org.project.enums.PaymentStatus;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -28,17 +26,14 @@ public class PaymentEntity {
     @Column(name = "payment_id", nullable = false)
     private Long id;
 
-    // Đây là trường quan trọng: Đảm bảo nó có mặt và được định nghĩa đúng
-    @NotNull // Lưu ý: Nếu một thanh toán không nhất thiết phải có order,
-    // bạn cần thay đổi thành @ManyToOne(fetch = FetchType.LAZY)
-    // và @JoinColumn(name = "order_id") (bỏ nullable = false).
-    // Hiện tại, nó yêu cầu một order_id không null.
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "order_id", nullable = false)
+    // Bỏ @NotNull nếu một thanh toán không nhất thiết phải có order
+    @ManyToOne(fetch = FetchType.LAZY) // optional = false mặc định là true
+    @JoinColumn(name = "order_id") // Bỏ nullable = false để cho phép null
     private OrderEntity orderEntity;
 
     @NotNull
-    @Column(name = "amount", nullable = false, precision = 10, scale = 2)
+    // Sửa đổi dòng này: Tăng precision và đặt scale về 0
+    @Column(name = "amount", nullable = false, precision = 19, scale = 0) // Đã sửa đổi
     private BigDecimal amount;
 
     @Column(name = "payment_time")
@@ -63,9 +58,4 @@ public class PaymentEntity {
     @Size(max = 255)
     @Column(name = "description") // Mô tả thêm về giao dịch
     private String description;
-
-    @OneToMany(mappedBy = "paymentEntity", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<WalletTransactionEntity> walletTransactionEntities = new LinkedHashSet<>();
-
-    // Lombok sẽ tự động tạo các getters và setters nhờ @Getter và @Setter
 }
