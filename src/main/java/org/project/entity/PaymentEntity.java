@@ -1,7 +1,9 @@
+// src/main/java/org/project/entity/PaymentEntity.java
 package org.project.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,14 +21,18 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity(name = "PaymentEntityEntity")
-@Table(name = "payments", schema = "swp391")
+@Table(name = "payments", schema = "swp391") // Đảm bảo schema của bạn
 public class PaymentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "payment_id", nullable = false)
     private Long id;
 
-    @NotNull
+    // Đây là trường quan trọng: Đảm bảo nó có mặt và được định nghĩa đúng
+    @NotNull // Lưu ý: Nếu một thanh toán không nhất thiết phải có order,
+    // bạn cần thay đổi thành @ManyToOne(fetch = FetchType.LAZY)
+    // và @JoinColumn(name = "order_id") (bỏ nullable = false).
+    // Hiện tại, nó yêu cầu một order_id không null.
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "order_id", nullable = false)
     private OrderEntity orderEntity;
@@ -38,16 +44,28 @@ public class PaymentEntity {
     @Column(name = "payment_time")
     private Timestamp paymentTime;
 
-    @OneToMany
-    private Set<WalletTransactionEntity> walletTransactionEntities = new LinkedHashSet<>();
-
     @Column(name = "payment_method", nullable = false)
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING) // Lưu tên enum dưới dạng String
     private PaymentMethod paymentMethod;
 
     @Column(name = "payment_status", nullable = false)
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING) // Lưu tên enum dưới dạng String
     private PaymentStatus paymentStatus;
 
+    @Size(max = 255)
+    @Column(name = "transaction_ref", unique = true) // Mã giao dịch riêng của hệ thống bạn
+    private String transactionRef;
 
+    @Size(max = 255)
+    @Column(name = "vnpay_transaction_no") // Mã giao dịch của VNPAY
+    private String vnpayTransactionNo;
+
+    @Size(max = 255)
+    @Column(name = "description") // Mô tả thêm về giao dịch
+    private String description;
+
+    @OneToMany(mappedBy = "paymentEntity", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<WalletTransactionEntity> walletTransactionEntities = new LinkedHashSet<>();
+
+    // Lombok sẽ tự động tạo các getters và setters nhờ @Getter và @Setter
 }

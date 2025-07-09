@@ -1,9 +1,8 @@
+// src/main/java/org/project/service/VNPayService.java
 package org.project.service;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.project.config.VNPayConfig;
-import org.project.entity.CartItemEntity;
-import org.project.repository.CartItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,65 +16,72 @@ import java.util.*;
 public class VNPayService {
 
     @Autowired
-    private CartItemRepository cartItemRepository;
+    private VNPayConfig vnpayConfig; // Sử dụng VNPayConfig đã được @Component
 
-    public BigDecimal calculateTotalAmount(Long userId) {
-        List<CartItemEntity> cartItems = cartItemRepository.findByUserEntityId(userId);
-        BigDecimal totalAmount = BigDecimal.ZERO;
+    // Loại bỏ calculateTotalAmount vì không liên quan đến nạp tiền vào ví
+    // public BigDecimal calculateTotalAmount(Long userId) {
+    //     List<CartItemEntity> cartItems = cartItemRepository.findByUserEntityId(userId);
+    //     BigDecimal totalAmount = BigDecimal.ZERO;
+    //
+    //     for (CartItemEntity item : cartItems) {
+    //         BigDecimal productPrice = item.getProductEntity().getPrice();
+    //         BigDecimal quantity = BigDecimal.valueOf(item.getQuantity());
+    //         BigDecimal itemTotal = productPrice.multiply(quantity);
+    //         totalAmount = totalAmount.add(itemTotal);
+    //     }
+    //
+    //     return totalAmount;
+    // }
 
-        for (CartItemEntity item : cartItems) {
-            BigDecimal productPrice = item.getProductEntity().getPrice();
-            BigDecimal quantity = BigDecimal.valueOf(item.getQuantity());
-            BigDecimal itemTotal = productPrice.multiply(quantity);
-            totalAmount = totalAmount.add(itemTotal);
-        }
-
-        return totalAmount;
-    }
-
-    public String createOrder(Long orderId, String orderInfo, String urlReturn, BigDecimal totalAmount) {
+    /**
+     * Tạo URL thanh toán VNPAY cho giao dịch nạp tiền vào ví.
+     *
+     * @param txnRef      Mã giao dịch của hệ thống bạn (duy nhất)
+     * @param orderInfo   Thông tin mô tả đơn hàng/giao dịch
+     * @param totalAmount Tổng số tiền cần thanh toán (BigDecimal, sẽ được nhân 100)
+     * @param request     HttpServletRequest để lấy IP của client
+     * @return URL chuyển hướng đến cổng thanh toán VNPAY
+     */
+    public String createPaymentUrl(String txnRef, String orderInfo, BigDecimal totalAmount, HttpServletRequest request) {
         String vnp_Version = "2.1.0";
         String vnp_Command = "pay";
-        String vnp_TxnRef = String.valueOf(orderId);
-        String vnp_IpAddr = "127.0.0.1";
-        String vnp_TmnCode = VNPayConfig.vnp_TmnCode;
-        String orderType = "order-type";
+        String vnp_TmnCode = vnpayConfig.getTmnCode();
+        String orderType = "billpayment"; // Loại hình thanh toán cho nạp tiền
 
         Map<String, String> vnp_Params = new HashMap<>();
         vnp_Params.put("vnp_Version", vnp_Version);
         vnp_Params.put("vnp_Command", vnp_Command);
         vnp_Params.put("vnp_TmnCode", vnp_TmnCode);
-        vnp_Params.put("vnp_Amount", String.valueOf(totalAmount.multiply(BigDecimal.valueOf(100))));  // Chuyển sang VND và nhân với 100
+        // Chuyển sang VND và nhân với 100 (VNPAY yêu cầu số nguyên)
+        vnp_Params.put("vnp_Amount", String.valueOf(totalAmount.multiply(BigDecimal.valueOf(100)).longValue()));
         vnp_Params.put("vnp_CurrCode", "VND");
 
-        vnp_Params.put("vnp_TxnRef", vnp_TxnRef);
-        vnp_Params.put("vnp_OrderInfo", orderInfo);
+        vnp_Params.put("vnp_TxnRef", txnRef); // Mã giao dịch của bạn
+        vnp_Params.put("vnp_OrderInfo", orderInfo); // Mô tả giao dịch
         vnp_Params.put("vnp_OrderType", orderType);
 
-        String locate = "vn";
+        String locate = "vn"; // Ngôn ngữ hiển thị trên cổng VNPAY
         vnp_Params.put("vnp_Locale", locate);
 
-        urlReturn += VNPayConfig.vnp_Returnurl;
-        vnp_Params.put("vnp_ReturnUrl", urlReturn);
-        vnp_Params.put("vnp_IpAddr", vnp_IpAddr);
+        vnp_Params.put("vnp_ReturnUrl", vnpayConfig.getReturnUrl()); // URL callback của bạn
+        vnp_Params.put("vnp_IpAddr", vnpayConfig.getIpAddress(request)); // IP của client
 
         // Các tham số thời gian
-        Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
-        String vnp_CreateDate = formatter.format(cld.getTime());
-        vnp_Params.put("vnp_CreateDate", vnp_CreateDate);
+        vnp_Params.put("vnp_CreateDate", vnpayConfig.getVnpayCreateDate());
 
+        // Thời gian hết hạn giao dịch (ví dụ: 15 phút)
+        Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Asia/Ho_Chi_Minh"));
         cld.add(Calendar.MINUTE, 15);
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
         String vnp_ExpireDate = formatter.format(cld.getTime());
         vnp_Params.put("vnp_ExpireDate", vnp_ExpireDate);
 
-        List fieldNames = new ArrayList(vnp_Params.keySet());
+        // Sắp xếp các tham số và tạo chuỗi hash
+        List<String> fieldNames = new ArrayList<>(vnp_Params.keySet());
         Collections.sort(fieldNames);
         StringBuilder hashData = new StringBuilder();
         StringBuilder query = new StringBuilder();
-        Iterator itr = fieldNames.iterator();
-        while (itr.hasNext()) {
-            String fieldName = (String) itr.next();
+        for (String fieldName : fieldNames) {
             String fieldValue = vnp_Params.get(fieldName);
             if ((fieldValue != null) && (fieldValue.length() > 0)) {
                 hashData.append(fieldName);
@@ -84,43 +90,58 @@ public class VNPayService {
                 query.append(URLEncoder.encode(fieldName, StandardCharsets.US_ASCII));
                 query.append('=');
                 query.append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII));
-                if (itr.hasNext()) {
+                if (fieldNames.indexOf(fieldName) < fieldNames.size() - 1) {
                     query.append('&');
                     hashData.append('&');
                 }
             }
         }
         String queryUrl = query.toString();
-        String vnp_SecureHash = VNPayConfig.hmacSHA512(VNPayConfig.vnp_HashSecret, hashData.toString());
+        String vnp_SecureHash = vnpayConfig.hmacSHA512(vnpayConfig.getHashSecret(), hashData.toString());
         queryUrl += "&vnp_SecureHash=" + vnp_SecureHash;
-        String paymentUrl = VNPayConfig.vnp_PayUrl + "?" + queryUrl;
+        String paymentUrl = vnpayConfig.getVnpayUrl() + "?" + queryUrl;
         return paymentUrl;
     }
 
-    public int orderReturn(HttpServletRequest request) {
-        Map fields = new HashMap();
-        for (Enumeration params = request.getParameterNames(); params.hasMoreElements(); ) {
-            String fieldName = null;
-            String fieldValue = null;
-            fieldName = URLEncoder.encode((String) params.nextElement(), StandardCharsets.US_ASCII);
-            fieldValue = URLEncoder.encode(request.getParameter(fieldName), StandardCharsets.US_ASCII);
+    /**
+     * Xác thực kết quả trả về từ VNPAY (callback).
+     *
+     * @param request HttpServletRequest chứa các tham số từ VNPAY
+     * @return true nếu chữ ký hợp lệ và giao dịch thành công, false nếu không.
+     */
+    public boolean validateVnpayCallback(HttpServletRequest request) {
+        Map<String, String> fields = new HashMap<>();
+        for (Enumeration<String> params = request.getParameterNames(); params.hasMoreElements(); ) {
+            String fieldName = params.nextElement();
+            String fieldValue = request.getParameter(fieldName);
             if ((fieldValue != null) && (fieldValue.length() > 0)) {
                 fields.put(fieldName, fieldValue);
             }
         }
 
-        String vnp_SecureHash = request.getParameter("vnp_SecureHash");
-        fields.remove("vnp_SecureHashType");
-        fields.remove("vnp_SecureHash");
-        String signValue = VNPayConfig.hashAllFields(fields);
-        if (signValue.equals(vnp_SecureHash)) {
-            if ("00".equals(request.getParameter("vnp_TransactionStatus"))) {
-                return 1;
-            } else {
-                return 0;
+        String vnp_SecureHash = fields.get("vnp_SecureHash");
+        fields.remove("vnp_SecureHashType"); // Loại bỏ tham số này nếu có
+        fields.remove("vnp_SecureHash"); // Loại bỏ SecureHash để tính toán lại
+
+        // Sắp xếp các tham số và tạo chuỗi hash để xác thực
+        List<String> fieldNames = new ArrayList<>(fields.keySet());
+        Collections.sort(fieldNames);
+        StringBuilder hashData = new StringBuilder();
+        for (String fieldName : fieldNames) {
+            String fieldValue = fields.get(fieldName);
+            if ((fieldValue != null) && (fieldValue.length() > 0)) {
+                hashData.append(fieldName);
+                hashData.append('=');
+                hashData.append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII));
+                if (fieldNames.indexOf(fieldName) < fieldNames.size() - 1) {
+                    hashData.append('&');
+                }
             }
-        } else {
-            return -1;
         }
+
+        String calculatedSecureHash = vnpayConfig.hmacSHA512(vnpayConfig.getHashSecret(), hashData.toString());
+
+        // So sánh chữ ký nhận được với chữ ký tự tính toán
+        return calculatedSecureHash.equals(vnp_SecureHash);
     }
 }

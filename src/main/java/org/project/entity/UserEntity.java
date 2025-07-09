@@ -44,22 +44,22 @@ public class UserEntity {
     private Boolean twoFactorEnabled;
 
     @OneToOne(mappedBy = "userEntity")
-    private StaffEntity staffEntity;
+    private StaffEntity staffEntity; // Assuming StaffEntity exists
 
     @OneToMany(mappedBy = "userEntity")
-    private Set<CartItemEntity> cartItemEntities = new LinkedHashSet<>();
+    private Set<CartItemEntity> cartItemEntities = new LinkedHashSet<>(); // Assuming CartItemEntity exists
 
     @OneToMany(mappedBy = "userEntity")
-    private Set<NotificationEntity> notificationEntities = new LinkedHashSet<>();
+    private Set<NotificationEntity> notificationEntities = new LinkedHashSet<>(); // Assuming NotificationEntity exists
 
     @OneToMany(mappedBy = "userEntity")
-    private Set<PatientEntity> patientEntities = new LinkedHashSet<>();
+    private Set<PatientEntity> patientEntities = new LinkedHashSet<>(); // Assuming PatientEntity exists
 
     @OneToMany(mappedBy = "userEntity")
-    private Set<ShippingAddressEntity> shippingAddressEntities = new LinkedHashSet<>();
+    private Set<ShippingAddressEntity> shippingAddressEntities = new LinkedHashSet<>(); // Assuming ShippingAddressEntity exists
 
     @OneToMany(mappedBy = "userEntity")
-    private Set<UserCouponEntity> userCouponEntities = new LinkedHashSet<>();
+    private Set<UserCouponEntity> userCouponEntities = new LinkedHashSet<>(); // Assuming UserCouponEntity exists
 
     @OneToMany(mappedBy = "user") // Chỉnh lại mappedBy theo tên trường trong WalletEntity
     private Set<WalletEntity> walletEntities = new LinkedHashSet<>();
@@ -68,10 +68,10 @@ public class UserEntity {
     @JoinTable(name = "wishlist_products",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id"))
-    private Set<ProductEntity> products = new LinkedHashSet<>();
+    private Set<ProductEntity> products = new LinkedHashSet<>(); // Assuming ProductEntity exists
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_id", referencedColumnName = "patient_id")
-    private PatientEntity patientEntity;
+    private PatientEntity patientEntity; // Assuming PatientEntity exists
 
 }

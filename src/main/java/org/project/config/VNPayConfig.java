@@ -1,119 +1,101 @@
+// src/main/java/org/project/config/VNPayConfig.java
 package org.project.config;
 
-import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
 
+/**
+ * Lớp cấu hình VNPAY, chứa các thông tin cần thiết cho việc tích hợp VNPAY
+ * và các phương thức tiện ích để tạo chữ ký điện tử, lấy thời gian, IP.
+ */
 @Component
 public class VNPayConfig {
-    public static String vnp_PayUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-    public static String vnp_Returnurl = "/vnpay-payment";
-    public static String vnp_TmnCode = "EU5IUHP2";
-    public static String vnp_HashSecret = "C93YOKJ7DOYP7VZW72CGUAATLDTQMSC3";
-    public static String vnp_apiUrl = "https://sandbox.vnpayment.vn/merchant_webapi/api/transaction";
 
-    public static String md5(String message) {
-        String digest = null;
+    @Value("${vnpay.tmnCode}")
+    private String tmnCode;
+
+    @Value("${vnpay.hashSecret}")
+    private String hashSecret;
+
+    @Value("${vnpay.url}")
+    private String vnpayUrl;
+
+    @Value("${vnpay.returnUrl}")
+    private String returnUrl;
+
+    public String getTmnCode() {
+        return tmnCode;
+    }
+
+    public String getHashSecret() {
+        return hashSecret;
+    }
+
+    public String getVnpayUrl() {
+        return vnpayUrl;
+    }
+
+    public String getReturnUrl() {
+        return returnUrl;
+    }
+
+    /**
+     * Hàm tạo chuỗi hash SHA512
+     *
+     * @param key  Khóa bí mật (HashSecret)
+     * @param data Dữ liệu cần hash
+     * @return Chuỗi hash SHA512
+     */
+    public String hmacSHA512(String key, String data) {
         try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            byte[] hash = md.digest(message.getBytes(StandardCharsets.UTF_8));
-            StringBuilder sb = new StringBuilder(2 * hash.length);
+            Mac hmacSha512 = Mac.getInstance("HmacSHA512");
+            SecretKeySpec secretKey = new SecretKeySpec(key.getBytes(StandardCharsets.UTF_8), "HmacSHA512");
+            hmacSha512.init(secretKey);
+            byte[] hash = hmacSha512.doFinal(data.getBytes(StandardCharsets.UTF_8));
+            StringBuilder sb = new StringBuilder();
             for (byte b : hash) {
-                sb.append(String.format("%02x", b & 0xff));
-            }
-            digest = sb.toString();
-        } catch (NoSuchAlgorithmException ex) {
-            digest = "";
-        }
-        return digest;
-    }
-
-    public static String Sha256(String message) {
-        String digest = null;
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            byte[] hash = md.digest(message.getBytes(StandardCharsets.UTF_8));
-            StringBuilder sb = new StringBuilder(2 * hash.length);
-            for (byte b : hash) {
-                sb.append(String.format("%02x", b & 0xff));
-            }
-            digest = sb.toString();
-        } catch (NoSuchAlgorithmException ex) {
-            digest = "";
-        }
-        return digest;
-    }
-
-    //Util for VNPAY
-    public static String hashAllFields(Map fields) {
-        List fieldNames = new ArrayList(fields.keySet());
-        Collections.sort(fieldNames);
-        StringBuilder sb = new StringBuilder();
-        Iterator itr = fieldNames.iterator();
-        while (itr.hasNext()) {
-            String fieldName = (String) itr.next();
-            String fieldValue = (String) fields.get(fieldName);
-            if ((fieldValue != null) && (fieldValue.length() > 0)) {
-                sb.append(fieldName);
-                sb.append("=");
-                sb.append(fieldValue);
-            }
-            if (itr.hasNext()) {
-                sb.append("&");
-            }
-        }
-        return hmacSHA512(vnp_HashSecret, sb.toString());
-    }
-
-    public static String hmacSHA512(final String key, final String data) {
-        try {
-
-            if (key == null || data == null) {
-                throw new NullPointerException();
-            }
-            final Mac hmac512 = Mac.getInstance("HmacSHA512");
-            byte[] hmacKeyBytes = key.getBytes();
-            final SecretKeySpec secretKey = new SecretKeySpec(hmacKeyBytes, "HmacSHA512");
-            hmac512.init(secretKey);
-            byte[] dataBytes = data.getBytes(StandardCharsets.UTF_8);
-            byte[] result = hmac512.doFinal(dataBytes);
-            StringBuilder sb = new StringBuilder(2 * result.length);
-            for (byte b : result) {
-                sb.append(String.format("%02x", b & 0xff));
+                sb.append(String.format("%02x", b));
             }
             return sb.toString();
-
-        } catch (Exception ex) {
-            return "";
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to calculate HMAC SHA512", e);
         }
     }
 
-    public static String getIpAddress(HttpServletRequest request) {
-        String ipAdress;
+    /**
+     * Hàm lấy ngày giờ hiện tại theo định dạng VNPAY yêu cầu (yyyyMMddHHmmss)
+     *
+     * @return Chuỗi ngày giờ hiện tại
+     */
+    public String getVnpayCreateDate() {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
+        formatter.setTimeZone(TimeZone.getTimeZone("Asia/Ho_Chi_Minh")); // Đặt múi giờ Việt Nam
+        return formatter.format(new Date());
+    }
+
+    /**
+     * Hàm lấy địa chỉ IP của client từ HttpServletRequest
+     *
+     * @param request HttpServletRequest
+     * @return Địa chỉ IP của client
+     */
+    public String getIpAddress(jakarta.servlet.http.HttpServletRequest request) {
+        String ipAddress;
         try {
-            ipAdress = request.getHeader("X-FORWARDED-FOR");
-            if (ipAdress == null) {
-                ipAdress = request.getLocalAddr();
+            ipAddress = request.getHeader("X-FORWARDED-FOR");
+            if (ipAddress == null || "".equals(ipAddress)) {
+                ipAddress = request.getRemoteAddr();
             }
         } catch (Exception e) {
-            ipAdress = "Invalid IP:" + e.getMessage();
+            ipAddress = "Unknown"; // Trường hợp không lấy được IP
         }
-        return ipAdress;
-    }
-
-    public static String getRandomNumber(int len) {
-        Random rnd = new Random();
-        String chars = "0123456789";
-        StringBuilder sb = new StringBuilder(len);
-        for (int i = 0; i < len; i++) {
-            sb.append(chars.charAt(rnd.nextInt(chars.length())));
-        }
-        return sb.toString();
+        return ipAddress;
     }
 }

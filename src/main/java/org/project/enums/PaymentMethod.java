@@ -2,8 +2,8 @@ package org.project.enums;
 
 public enum PaymentMethod {
     CASH("cash"),
-    CARD("card"),
-    MOMO("momo");
+    VNPAY("vnpay");
+
 
     private final String value;
 
@@ -11,12 +11,12 @@ public enum PaymentMethod {
         this.value = value;
     }
 
-    public String getValue() {
-        return value;
-    }
-
     public static void main(String[] args) {
         PaymentMethod paymentMethod = PaymentMethod.CASH;
         System.out.println(paymentMethod.getValue());
+    }
+
+    public String getValue() {
+        return value;
     }
 }
