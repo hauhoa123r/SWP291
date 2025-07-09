@@ -17,7 +17,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @Getter
 @Setter
-@Entity// Hoặc @Entity
+@Entity
 @Table(name = "wallet_transactions", schema = "swp391") // Đảm bảo schema của bạn
 public class WalletTransactionEntity {
     @Id
@@ -49,8 +49,6 @@ public class WalletTransactionEntity {
     private WalletTransactionType walletTransactionType;
 
     @NotNull
-    @Column(name = "transaction_time", nullable = false)
-    private Timestamp transactionTime; // Đảm bảo trường này có và có setter
-
-    // Không cần setters/getters thủ công nếu đã dùng Lombok @Getter @Setter
+    @Column(name = "transaction_time", nullable = false) // Đảm bảo dòng này tồn tại
+    private Timestamp transactionTime;
 }
