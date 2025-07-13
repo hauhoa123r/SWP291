@@ -1,22 +1,25 @@
+// src/main/java/org/project/service/CartService.java
 package org.project.service;
 
 import org.project.entity.CartItemEntity;
-import org.project.repository.CartItemRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
-@Service
-public class CartService {
+public interface CartService {
+    /**
+     * Calculates the total amount of all products in the user's shopping cart.
+     *
+     * @param userId The ID of the user.
+     * @return The total amount in the shopping cart.
+     */
+    BigDecimal calculateCartTotal(Long userId);
 
-    @Autowired
-    private CartItemRepository cartItemRepository;
-
-
-    public List<CartItemEntity> getCartItemsByUserId(Long userId) {
-        return cartItemRepository.findByUserEntityId(userId);
-    }
-
-
+    /**
+     * Retrieves the list of items in the user's shopping cart.
+     *
+     * @param userId The ID of the user.
+     * @return A list of CartItemEntity.
+     */
+    List<CartItemEntity> getCartItems(Long userId);
 }
