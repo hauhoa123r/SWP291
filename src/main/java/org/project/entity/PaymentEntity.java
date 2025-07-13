@@ -13,6 +13,8 @@ import org.project.enums.PaymentStatus;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -26,14 +28,14 @@ public class PaymentEntity {
     @Column(name = "payment_id", nullable = false)
     private Long id;
 
-    // Bỏ @NotNull nếu một thanh toán không nhất thiết phải có order
-    @ManyToOne(fetch = FetchType.LAZY) // optional = false mặc định là true
+    // ĐÃ SỬA ĐỔI: Cho phép orderEntity là NULL
+    // Bỏ @NotNull và optional = false, bỏ nullable = false trong @JoinColumn
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id") // Bỏ nullable = false để cho phép null
     private OrderEntity orderEntity;
 
     @NotNull
-    // Sửa đổi dòng này: Tăng precision và đặt scale về 0
-    @Column(name = "amount", nullable = false, precision = 19, scale = 0) // Đã sửa đổi
+    @Column(name = "amount", nullable = false, precision = 19, scale = 0) // Đã sửa đổi precision/scale
     private BigDecimal amount;
 
     @Column(name = "payment_time")
@@ -58,4 +60,7 @@ public class PaymentEntity {
     @Size(max = 255)
     @Column(name = "description") // Mô tả thêm về giao dịch
     private String description;
+
+    @OneToMany(mappedBy = "paymentEntity")
+    private Set<WalletTransactionEntity> walletTransactionEntities = new LinkedHashSet<>();
 }

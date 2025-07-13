@@ -19,7 +19,7 @@ import java.util.Map;
  * Nó cũng phục vụ các trang HTML liên quan đến thanh toán.
  */
 @Controller
-@RequestMapping("/api/payment") // Đặt base path là /api/payment
+@RequestMapping("/payment") // Đặt base path là /api/payment
 public class VNPAYAPI {
 
     @Autowired
