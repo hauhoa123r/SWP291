@@ -45,10 +45,5 @@ public class PaymentController {
         return "frontend/order-received";
     }
 
-    @RequestMapping("/index")
-    public String index() {
-        return "frontend/index.html";
-    }
-
 
 }
