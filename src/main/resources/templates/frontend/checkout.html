@@ -1403,14 +1403,21 @@
                 <div class="checkout-review-order">
                     <div class="table-responsive">
                         <table class="w-100">
-                            <tbody>
-                            <tr class="border-bottom">
-                                <td class="ps-0 p-3">Contact Lenses QTY: 1</td>
-                                <td class="pe-0 p-3 text-end">$19.00</td>
+                            <tbody id="cart-items-body">
+                            <tr th:if="${#lists.isEmpty(cartItems)}">
+                                <td class="text-center py-4 text-gray-500" colspan="4">Giỏ hàng trống.</td>
                             </tr>
-                            <tr class="border-bottom">
-                                <td class="ps-0 p-3">Asthma Inhaler QTY: 1</td>
-                                <td class="pe-0 p-3 text-end">$45.00</td>
+                            <tr class="border-bottom" th:each="item : ${cartItems}">
+                                <td class="ps-0 p-3" th:text="${item.productName}">Contact Lenses</td>
+                                <td class="p-3 text-end" th:text="${item.quantity}">1</td>
+                                <td class="p-3 text-end"
+                                    th:text="'$' + ${#numbers.formatDecimal(item.pricePerUnit, 0, 'COMMA', 2, 'POINT')}">
+                                    $19.00
+                                </td>
+                                <td class="pe-0 p-3 text-end"
+                                    th:text="'$' + ${#numbers.formatDecimal(item.itemTotal, 0, 'COMMA', 2, 'POINT')}">
+                                    $19.00
+                                </td>
                             </tr>
                             </tbody>
                             <tfoot>
@@ -1423,7 +1430,9 @@
                             <tr class="border-bottom">
                                 <td class="ps-0 p-3 fw-bold text-primary">Total</td>
                                 <td class="pe-0 p-3 fw-bold text-end">
-                                    <h5 class="text-primary mb-0">$64.00</h5>
+                                    <h5 class="text-primary mb-0" id="subtotal"
+                                        th:text="'$' + ${#numbers.formatDecimal(cartTotal, 0, 'COMMA', 2, 'POINT')}">
+                                        $0.00</h5>
                                 </td>
                             </tr>
                             </tfoot>
@@ -1443,7 +1452,7 @@
                             </p>
                             <div class="button-primary">
                                 <div class="iq-btn-container">
-                                    <a class="iq-button text-capitalize" href="/payment/form">
+                                    <a class="iq-button text-capitalize" href="/api/payment/form">
                                         <span class="iq-btn-text-holder position-relative">Place Order</span>
                                         <span class="iq-btn-icon-holder">
                               <svg fill="none" height="10" viewBox="0 0 8 8" width="10"

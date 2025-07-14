@@ -2,6 +2,9 @@
 package org.project.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.project.entity.CartItemEntity;
+import org.project.model.response.CartItemResponse;
+import org.project.service.CartService;
 import org.project.service.WalletService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,7 +14,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Controller này xử lý tất cả các API liên quan đến thanh toán, nạp và rút tiền
@@ -19,11 +24,13 @@ import java.util.Map;
  * Nó cũng phục vụ các trang HTML liên quan đến thanh toán.
  */
 @Controller
-@RequestMapping("/payment") // Đặt base path là /api/payment
+@RequestMapping("api/payment") // Đặt base path là /api/payment
 public class VNPAYAPI {
 
     @Autowired
     private WalletService walletService; // Sử dụng interface WalletService
+    @Autowired
+    private CartService cartService;
 
     /**
      * Endpoint để hiển thị trang form nạp tiền.
@@ -34,6 +41,27 @@ public class VNPAYAPI {
     @GetMapping("/form")
     public String showPaymentForm() {
         return "frontend/payment_form"; // Trả về template payment_form.html trong thư mục frontend
+    }
+
+    @GetMapping("/checkout/review/{userId}")
+    public String showCheckoutReview(@PathVariable Long userId, Model model) {
+        List<CartItemEntity> cartItems = cartService.getCartItems(userId);
+        BigDecimal cartTotal = cartService.calculateCartTotal(userId);
+
+        // Chuyển đổi CartItemEntity sang CartItemResponse để tránh lỗi tuần tự hóa LazyInitializationException
+        List<CartItemResponse> cartItemResponses = cartItems.stream()
+                .map(item -> new CartItemResponse(
+                        item.getProductEntity().getName(),
+                        item.getQuantity(),
+                        item.getProductEntity().getPrice()
+                ))
+                .collect(Collectors.toList());
+
+        model.addAttribute("cartItems", cartItemResponses);
+        model.addAttribute("cartTotal", cartTotal);
+        model.addAttribute("userId", userId); // Truyền userId sang frontend nếu cần
+
+        return "frontend/checkout"; // Trả về template checkout_review.html
     }
 
     /**

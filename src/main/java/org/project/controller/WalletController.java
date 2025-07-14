@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Controller này xử lý các API liên quan đến quản lý ví người dùng.
  */
 @RestController
-@RequestMapping("/api/wallet") // Giữ nguyên base path cho các API liên quan đến ví
+@RequestMapping("/wallet") // Giữ nguyên base path cho các API liên quan đến ví
 public class WalletController {
 
     @Autowired
