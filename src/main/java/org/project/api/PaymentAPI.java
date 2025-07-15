@@ -5,10 +5,12 @@ import org.project.model.request.PaymentRequest;
 import org.project.model.response.PaymentResponse;
 import org.project.service.PaymentService;
 import org.project.service.impl.PaymentServiceImpl;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/payment")
@@ -30,15 +32,25 @@ public class PaymentAPI {
         return ResponseEntity.ok(paymentResponse);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<PaymentResponse> getPaymentById(@PathVariable Long id) {
+        Optional<PaymentResponse> payment = paymentService.getPaymentById(id);
+        return payment.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
 
-//    @GetMapping
-//    public ResponseEntity<List<PaymentResponse>> getAllPayments(
-//            @RequestParam(defaultValue = "1") int page,
-//            @RequestParam(defaultValue = "10") int size) {
-//
-//        List<PaymentResponse> payments = paymentService.getAllPayments(page, size);
-//        return ResponseEntity.ok(payments);
-//    }
+    @PostMapping("/save")
+    public ResponseEntity<PaymentResponse> savePayment(@RequestBody PaymentResponse paymentResponse) {
+        PaymentResponse savedPayment = paymentService.savePayment(paymentResponse);
+        return ResponseEntity.status(savedPayment.getPaymentId() != null ? HttpStatus.OK : HttpStatus.CREATED).body(savedPayment);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletePayment(@PathVariable Long id) {
+        paymentService.deletePayment(id);
+        return ResponseEntity.noContent().build();
+    }
+
 
     @GetMapping("/methods")
     public ResponseEntity<List<PaymentMethod>> getAllPaymentMethods() {
