@@ -18,6 +18,7 @@ import java.util.Set;
 @Entity
 @Table(name = "reviews", schema = "swp391")
 @FieldNameConstants
+
 public class ReviewEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,6 +44,9 @@ public class ReviewEntity {
 
     @ManyToMany
     private Set<StaffEntity> staffEntities = new LinkedHashSet<>();
+
+
+
 
 /*
  TODO [Reverse Engineering] create field to map the 'review_type' column

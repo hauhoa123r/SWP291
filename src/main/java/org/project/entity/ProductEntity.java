@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.FieldNameConstants;
 import org.hibernate.annotations.ColumnDefault;
 import org.project.enums.Label;
 import org.project.enums.ProductStatus;
@@ -22,6 +23,7 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "products", schema = "swp391")
+@FieldNameConstants
 public class ProductEntity {
 
     @Id
@@ -96,7 +98,7 @@ public class ProductEntity {
     @OneToOne(mappedBy = "productEntity")
     private TestEntity testEntity;
 
-    @ManyToMany(mappedBy = "products") // ✅ ĐÃ FIX: mappedBy liên kết với 'products' ở UserEntity
+    @ManyToMany(mappedBy = "products")
     private Set<UserEntity> userEntities = new LinkedHashSet<>();
 
     @Enumerated(EnumType.STRING)
@@ -121,7 +123,6 @@ public class ProductEntity {
                 .orElse(0.0);
     }
 
-    public Long getReviewCount() {
-        return (long) reviewEntities.size();
-    }
+
+
 }

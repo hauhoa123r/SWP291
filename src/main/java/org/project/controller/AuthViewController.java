@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/auth-view")
 @RequiredArgsConstructor
-public class AuthViewController {
+public class    AuthViewController {
 
 
     private final ForgotPasswordService forgotPasswordService;

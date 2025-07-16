@@ -28,7 +28,6 @@ public class AuthController {
 
         int status = response.getStatusCode();
 
-        // ✅ Nếu status code không hợp lệ, fallback về 500
         if (status < 100 || status > 599) {
             status = 500;
         }

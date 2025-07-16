@@ -175,6 +175,13 @@ public class UserService implements IUserService {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
         UserEntity user = userRepository.findByEmail(email).orElseThrow();
 
+//        if(!user.getIsVerified()) {
+//            throw new OurException("Tài khoản chưa được xác minh hoặc đã bị vô hiệu hóa.");
+//        }
+//        if (!"INACTIVE".equals(user.getUserStatus())) {
+//            throw new OurException("Tài khoản không hoạt động.");
+//        }
+
         String token = jwtUtils.generateToken(user);
         Cookie cookie = new Cookie("token", token);
         cookie.setHttpOnly(true);
@@ -187,9 +194,9 @@ public class UserService implements IUserService {
         }
 
         return switch (user.getUserRole()) {
-            case ADMIN -> "redirect:/admin";
+            case ADMIN -> "redirect:http://localhost:3000/";
             case DOCTOR -> "redirect:/doctor";
-            case PATIENT -> "redirect:/home";
+            case PATIENT -> "redirect:/patient";
             case STAFF -> "redirect:/staff";
             default -> throw new RuntimeException("Unknown role.");
         };
